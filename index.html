@@ -2113,6 +2113,13 @@ button {
 .save-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(102,78,180,.30)}
 @media(max-width:760px){.form-grid{grid-template-columns:1fr}.form-grid>.form-group,.form-grid>.form-group:nth-child(n){grid-column:1/-1!important}.checklist-editor{grid-template-columns:1fr}#caseForm{padding:0 20px 20px}.modal-header{padding:20px}.modal-actions{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}.modal-content{border-radius:16px}}
 
+
+/* Timeline flag is a Card View action only. */
+.cases-grid.list-mode .quick-action[title="View Timeline"],
+.cases-grid.list-mode .quick-action[aria-label="View Timeline"] {
+    display: none !important;
+}
+
 </style>
 </head>
 
@@ -3348,8 +3355,13 @@ window.toggleCaseNotes = function(id, button) {
 window.focusTimeline = function(id) {
     const details = document.querySelector(`.case-card[data-case-id="${CSS.escape(String(id))}"] .activity-timeline`);
     if (!details) return;
-    details.open = true;
-    details.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const wasOpen = details.open;
+    details.open = !wasOpen;
+
+    if (!wasOpen) {
+        details.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 };
 
 window.quickResolveCase = function(id) {
