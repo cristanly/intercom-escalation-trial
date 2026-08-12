@@ -133,7 +133,9 @@ button {
     border: none;
     color: #aeb5c9;
     background: transparent;
-    padding: 13px 12px;
+    padding: 11px 10px;
+    font-size: 12px;
+    white-space: nowrap;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -165,6 +167,7 @@ button {
 
 .nav-count {
     margin-left: auto;
+    font-size: 10px;
     min-width: 24px;
     height: 24px;
     padding: 0 7px;
@@ -660,16 +663,6 @@ button {
 .restore-btn {
     border-color: var(--cyan);
     color: var(--cyan);
-}
-
-.permanent-delete-btn {
-    border-color: rgba(255,127,150,.3);
-    color: var(--red);
-}
-
-.permanent-delete-btn:hover {
-    background: rgba(255,127,150,.12);
-    border-color: var(--red);
 }
 
 /* EMPTY STATE */
@@ -2295,7 +2288,6 @@ function renderCaseCard(c) {
                     <button class="card-btn delete-btn" onclick="deleteCase('${c.id}')">🗑️</button>
                 ` : `
                     <button class="card-btn restore-btn" onclick="restoreCase('${c.id}')">Restore</button>
-                    <button class="card-btn permanent-delete-btn" onclick="permanentlyDeleteCase('${c.id}')">Delete Forever</button>
                 `}
             </div>
         </div>
@@ -2438,22 +2430,6 @@ window.restoreCase = function(id) {
         renderApp();
         showToast('Case restored to Ready to Escalate.');
     }
-};
-
-window.permanentlyDeleteCase = function(id) {
-    const c = cases.find(item => item.id === id);
-    if (!c) return;
-
-    const confirmed = confirm(
-        'Permanently delete this case? This action cannot be undone.'
-    );
-
-    if (!confirmed) return;
-
-    cases = cases.filter(item => item.id !== id);
-    saveCases();
-    renderApp();
-    showToast('Case permanently deleted.');
 };
 
 // --- SEARCH & FILTER LISTENERS ---
