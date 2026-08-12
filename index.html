@@ -1562,6 +1562,51 @@ button {
     }
 }
 
+
+/* ===== REFERENCE MODAL V2 ===== */
+.modal{padding:24px;background:rgba(2,4,12,.78);backdrop-filter:blur(12px)}
+.modal-content{width:min(960px,100%);max-height:94vh;overflow-y:auto;padding:0;border-radius:18px;background:radial-gradient(circle at 100% 0,rgba(104,221,255,.045),transparent 30%),radial-gradient(circle at 0 0,rgba(209,140,255,.07),transparent 32%),#0e1322;border:1px solid rgba(135,151,190,.20);box-shadow:0 28px 90px rgba(0,0,0,.58)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin:0;padding:24px 28px 22px;border-bottom:1px solid rgba(135,151,190,.16)}
+.modal-header h2{margin:0;font-size:25px;line-height:1.2;color:#f5f7ff;letter-spacing:-.02em}
+.close-btn{width:46px;height:46px;min-width:46px;border:1px solid #65708b;background:rgba(12,17,31,.88);color:#f0f3fb;border-radius:11px;display:grid;place-items:center;cursor:pointer}
+.close-btn .icon-line{width:21px;height:21px;stroke-width:1.8}
+.close-btn:hover{border-color:#c58cff;background:#171d31;color:#fff;transform:none}
+#caseForm{padding:0 28px 26px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px;padding-top:24px}
+.form-group{gap:9px;min-width:0}
+.form-group label{font-size:11px;font-weight:700;letter-spacing:.03em;color:#dce1ee}
+.form-group input,.form-group select,.form-group textarea{width:100%;box-sizing:border-box;min-height:50px;background:#0b1020;border:1px solid rgba(130,145,180,.25);border-radius:10px;padding:13px 15px;color:#edf1fa;outline:none;font-size:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.015)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#7e879b}
+.form-group input:hover,.form-group select:hover,.form-group textarea:hover{border-color:rgba(168,180,210,.38)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#b98cff;box-shadow:0 0 0 3px rgba(185,140,255,.09)}
+.form-group textarea{min-height:96px;resize:vertical}
+.form-group.full{grid-column:1/-1}
+.form-grid>.form-group:nth-child(1){grid-column:1}
+.form-grid>.form-group:nth-child(2){grid-column:2}
+.form-grid>.form-group:nth-child(3){grid-column:1}
+.form-grid>.form-group:nth-child(4){grid-column:2}
+.form-grid>.form-group:nth-child(5){grid-column:1}
+.form-grid>.form-group:nth-child(7){grid-column:2}
+.form-grid>.form-group:nth-child(8),.form-grid>.form-group:nth-child(9),.form-grid>.form-group:nth-child(10){grid-column:1/-1}
+#customProviderGroup{grid-column:1!important}
+.modal-section-title{margin:27px 0 12px;padding:0;color:#c78cff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.form-grid+.modal-section-title{margin-top:26px}
+.checklist-editor{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.check-row{min-height:48px;box-sizing:border-box;padding:12px 13px;border:1px solid rgba(130,145,180,.23);border-radius:10px;background:rgba(255,255,255,.018);display:flex;gap:10px;align-items:center;color:#bfc7d8;font-size:12px;line-height:1.3}
+.check-row:hover{border-color:rgba(185,140,255,.4);background:rgba(185,140,255,.035)}
+.check-row input{accent-color:#69f0c1;width:17px;height:17px;flex:0 0 auto}
+.upload-area{min-height:96px;padding:16px;border-radius:11px;border:1px dashed rgba(130,145,180,.32);background:rgba(255,255,255,.012);display:flex;align-items:center;justify-content:center}
+.upload-label{font-size:13px;color:#aeb7ca}
+.upload-label strong{color:#9ee9ff}
+.upload-label .icon-line{width:24px;height:24px;margin-right:8px}
+.modal-actions{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin:28px -28px 0;padding:20px 28px 0;border-top:1px solid rgba(135,151,190,.16)}
+.cancel-btn,.save-btn{height:50px;min-height:50px;border-radius:11px;padding:0 24px;font-size:14px;font-weight:800;cursor:pointer;transition:.18s ease}
+.cancel-btn{min-width:120px;background:#101628;border:1px solid #65708b;color:#f0f3fb}
+.cancel-btn:hover{background:#171e31;border-color:#8994ad;color:#fff}
+.save-btn{min-width:140px;border:1px solid #c68cff;color:#fff;background:linear-gradient(135deg,#8751c6 0%,#3c79a5 100%);box-shadow:0 8px 24px rgba(102,78,180,.20)}
+.save-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(102,78,180,.30)}
+@media(max-width:760px){.form-grid{grid-template-columns:1fr}.form-grid>.form-group,.form-grid>.form-group:nth-child(n){grid-column:1/-1!important}.checklist-editor{grid-template-columns:1fr}#caseForm{padding:0 20px 20px}.modal-header{padding:20px}.modal-actions{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}.modal-content{border-radius:16px}}
+
 </style>
 </head>
 
@@ -1865,7 +1910,7 @@ button {
 <div class="modal" id="caseModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 id="modalTitle">New Escalation Case</h2>
+            <h2 id="modalTitle">Add New Escalation</h2>
             <button class="close-btn" id="closeModalBtn"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
         </div>
         <form id="caseForm">
@@ -2574,7 +2619,7 @@ addCaseBtn.addEventListener('click', () => {
     customProviderGroup.style.display = 'none';
     currentUploadedProofs = [];
     renderUploadPreviews();
-    document.getElementById('modalTitle').textContent = 'New Escalation Case';
+    document.getElementById('modalTitle').textContent = 'Add New Escalation';
     caseModal.classList.add('show');
 });
 
@@ -2653,7 +2698,7 @@ window.editCase = function(id) {
     currentUploadedProofs = c.proofs ? [...c.proofs] : [];
     renderUploadPreviews();
 
-    document.getElementById('modalTitle').textContent = 'Edit Escalation Case';
+    document.getElementById('modalTitle').textContent = 'Edit Escalation';
     caseModal.classList.add('show');
 };
 
