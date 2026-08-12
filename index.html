@@ -1325,264 +1325,6 @@ button {
         justify-content: space-between;
     }
 }
-
-/* =========================================================
-   LIGHT / NORMAL SAAS THEME OVERRIDE
-   ========================================================= */
-:root {
-    --bg: #f5f7fb;
-    --panel: #ffffff;
-    --panel-light: #ffffff;
-    --text: #20242d;
-    --muted: #727988;
-    --border: #e5e8ef;
-    --purple: #6d5dfc;
-    --purple-glow: rgba(109,93,252,.16);
-    --cyan: #2f9fd3;
-    --cyan-glow: rgba(47,159,211,.12);
-    --yellow: #c79a12;
-    --orange: #d8793f;
-    --green: #23966a;
-    --pink: #d35aa8;
-    --red: #d75c6b;
-    --teal: #279a72;
-    --shadow-sm: 0 1px 2px rgba(16,24,40,.04), 0 4px 12px rgba(16,24,40,.04);
-    --shadow-md: 0 8px 24px rgba(16,24,40,.07);
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-}
-
-.sidebar {
-    background: #ffffff;
-    border-right: 1px solid #e6e9ef;
-    box-shadow: 2px 0 10px rgba(16,24,40,.025);
-    backdrop-filter: none;
-}
-
-.brand { padding-bottom: 28px; }
-.brand-icon {
-    width: 44px;
-    height: 44px;
-    border: 1px solid #dfe2ea;
-    border-radius: 12px;
-    background: #f7f6ff;
-    box-shadow: none;
-    color: var(--purple);
-}
-.brand h1 { color: #20242d; }
-.brand span { color: var(--purple); }
-
-.nav-label { color: #9aa1ae; }
-.nav-item {
-    color: #626978;
-    border: 1px solid transparent;
-    border-radius: 10px;
-}
-.nav-item:hover {
-    background: #f6f7fa;
-    color: #242934;
-}
-.nav-item.active {
-    background: #f1efff;
-    border-color: #e1ddff;
-    color: #5145c8;
-    box-shadow: none;
-}
-.nav-icon { color: currentColor; }
-.icon-line { stroke-width: 1.8; }
-
-.count-ready { color: #2787b4; background: #eaf7fc; }
-.count-waiting { color: #a47c08; background: #fff7d9; }
-.count-pending { color: #b85d2c; background: #fff0e7; }
-.count-escalated { color: #21805d; background: #e8f8f1; }
-.count-resolved { color: #237c5e; background: #e7f7ef; }
-.count-rejected { color: #bd4e5c; background: #ffebee; }
-.count-deleted { color: #737987; background: #eef0f3; }
-
-.main { padding: 32px 34px; }
-.greeting h2 { color: #20242d; }
-.greeting p { color: #7b8290; }
-
-.add-btn {
-    border: 1px solid #5c4ff0;
-    background: #6255f5;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(98,85,245,.18);
-    border-radius: 10px;
-}
-.add-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 7px 18px rgba(98,85,245,.22);
-}
-
-.gear-btn,
-.gear-menu,
-.search-box input,
-.filter-select,
-.review-table-wrap,
-.review-stat,
-.review-empty,
-.review-add-btn,
-.modal-content,
-.name-modal-content,
-.case-modal-content {
-    background: #fff;
-    color: var(--text);
-}
-
-.search-box input,
-.filter-select {
-    border-color: #dfe3ea;
-    box-shadow: none;
-}
-.search-box input:focus,
-.filter-select:focus {
-    border-color: #b7b0ff;
-    box-shadow: 0 0 0 3px rgba(109,93,252,.08);
-}
-
-.section-heading { margin-top: 8px; }
-.section-heading h3 { color: #292e38; }
-.case-count { color: #858c99; }
-
-.cases-grid { gap: 16px; }
-.case-card {
-    border: 1px solid #e2e5eb;
-    border-radius: 16px;
-    padding: 19px;
-    box-shadow: var(--shadow-sm);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.case-card:hover {
-    transform: translateY(-2px);
-    border-color: #d5d9e2;
-    box-shadow: var(--shadow-md);
-}
-
-/* Soft pastel case colors */
-.case-card.status-ready {
-    background: #f0f9fd;
-    border-color: #cfeaf5;
-    box-shadow: inset 4px 0 0 #62b9dc, var(--shadow-sm);
-}
-.case-card.status-waiting {
-    background: #fffbed;
-    border-color: #f2e4b1;
-    box-shadow: inset 4px 0 0 #e2bd4d, var(--shadow-sm);
-}
-.case-card.status-pending {
-    background: #fff5ee;
-    border-color: #f2d8c5;
-    box-shadow: inset 4px 0 0 #e49a68, var(--shadow-sm);
-}
-.case-card.status-escalated {
-    background: #effaf5;
-    border-color: #ccebdd;
-    box-shadow: inset 4px 0 0 #55b88f, var(--shadow-sm);
-}
-.case-card.status-resolved {
-    background: #eef9f3;
-    border-color: #c9e8d8;
-    box-shadow: inset 4px 0 0 #4eaf84, var(--shadow-sm);
-}
-.case-card.status-rejected {
-    background: #fff2f4;
-    border-color: #f0d2d7;
-    box-shadow: inset 4px 0 0 #db7180, var(--shadow-sm);
-}
-.case-card.status-deleted {
-    background: #f5f6f8;
-    border-color: #e1e3e7;
-    box-shadow: inset 4px 0 0 #a5aab4, var(--shadow-sm);
-    opacity: .9;
-}
-
-.status-waiting .status-label { color: #9b770e; }
-.status-ready .status-label { color: #287fa8; }
-.status-pending .status-label { color: #b56337; }
-.status-escalated .status-label { color: #257d5d; }
-.status-resolved .status-label { color: #267b5d; }
-.status-rejected .status-label { color: #bd5260; }
-.status-deleted .status-label { color: #777d88; }
-.case-age { color: #8b919d; }
-.user-info h4 { color: #252a33; }
-.user-info p { color: #7d8491; }
-
-.avatar {
-    color: #fff;
-    background: #7165df;
-    border-radius: 12px;
-}
-.status-ready .avatar { background: #58aacd; }
-.status-waiting .avatar { background: #c9a337; }
-.status-pending .avatar { background: #d88959; }
-.status-escalated .avatar { background: #4cae87; }
-.status-resolved .avatar { background: #4ca47e; }
-.status-rejected .avatar { background: #d16b78; }
-.status-deleted .avatar { background: #989da7; }
-
-.case-info { border-top-color: #dfe3e9; }
-.info-label { color: #858c98; }
-.provider-tag,
-.issue-tag {
-    background: rgba(255,255,255,.7);
-    border: 1px solid rgba(0,0,0,.06);
-    color: #454b57;
-}
-
-.evidence-section {
-    background: rgba(255,255,255,.58);
-    border-color: rgba(0,0,0,.07);
-}
-.evidence-title { color: #555c68; }
-
-.card-actions { border-top-color: rgba(0,0,0,.07); }
-.card-btn { border-radius: 9px; }
-.primary-action {
-    background: #fff;
-    border-color: #d7dbe3;
-    color: #454b57;
-}
-.primary-action:hover { background: #f8f9fb; border-color: #c9ced8; }
-.delete-btn {
-    background: #fff;
-    border-color: #ead4d7;
-    color: #c45a67;
-}
-.restore-btn {
-    background: #fff;
-    border-color: #cfe2d9;
-    color: #27805e;
-}
-
-/* Cleaner reviews section */
-.review-stat {
-    border-color: #e2e5eb;
-    box-shadow: var(--shadow-sm);
-}
-.review-table-wrap { border-color: #e2e5eb; box-shadow: var(--shadow-sm); }
-.review-add-btn {
-    border: 1px solid #d8d4ff;
-    background: #f3f1ff;
-    color: #574bd0;
-    box-shadow: none;
-}
-.review-add-btn:hover { background: #ece9ff; }
-
-/* Modals / dropdowns */
-.gear-menu { border-color: #e1e4ea; box-shadow: 0 14px 35px rgba(16,24,40,.12); }
-.modal-overlay { background: rgba(31,36,45,.32); backdrop-filter: blur(3px); }
-.modal-content,
-.name-modal-content,
-.case-modal-content { border-color: #e1e4ea; box-shadow: 0 20px 55px rgba(16,24,40,.16); }
-
-/* Keep every interface icon as a clean line SVG */
-.search-box > span,
-.stat-icon { color: #7c8491; }
-
 </style>
 </head>
 
@@ -1593,7 +1335,7 @@ body {
 <aside class="sidebar">
 
     <div class="brand">
-        <div class="brand-icon"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.3 8.6-8 10-4.7-1.4-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <div class="brand-icon">!</div>
         <div>
             <h1>ESCALATION</h1>
             <span>TRACKER</span>
@@ -2513,7 +2255,7 @@ function renderCaseCard(c) {
         <div class="case-card status-${c.status}">
             <div class="card-top">
                 <span class="status-label">${c.status.toUpperCase()}</span>
-                <span class="case-age"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 9h18"/></svg> ${c.caseDate || 'No Date'}</span>
+                <span class="case-age">📅 ${c.caseDate || 'No Date'}</span>
             </div>
             <div class="user-info">
                 <div class="avatar">${avatarInitial}</div>
@@ -2550,9 +2292,9 @@ function renderCaseCard(c) {
             <div class="card-actions">
                 ${!isDeleted ? `
                     <button class="card-btn primary-action" onclick="editCase('${c.id}')">Edit Case</button>
-                    <button class="card-btn delete-btn" aria-label="Delete case" title="Move to deleted" onclick="deleteCase('${c.id}')"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg></button>
+                    <button class="card-btn delete-btn" onclick="deleteCase('${c.id}')">🗑️</button>
                 ` : `
-                    <button class="card-btn restore-btn" onclick="restoreCase('${c.id}')"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/><path d="M12 8v5l3 2"/></svg> Restore</button>
+                    <button class="card-btn restore-btn" onclick="restoreCase('${c.id}')">Restore</button>
                     <button class="card-btn permanent-delete-btn" onclick="permanentlyDeleteCase('${c.id}')">Delete Forever</button>
                 `}
             </div>
