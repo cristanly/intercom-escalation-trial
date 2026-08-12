@@ -2189,6 +2189,11 @@ let currentMode = 'cases';
 let currentUploadedProofs = [];
 let currentView = localStorage.getItem('escalation_view_preference') || 'card';
 
+// Stat animations run only when the dashboard/reviews workspace is first visited
+// during the current page session. Sidebar navigation counts stay static.
+let casesStatsAnimated = false;
+let reviewsStatsAnimated = false;
+
 // --- DOM ELEMENTS ---
 const displayName = document.getElementById('displayName');
 const editNameBtn = document.getElementById('editNameBtn');
@@ -2572,6 +2577,10 @@ function renderApp() {
     
     // UI layout check tracker trigger
     updateViewToggleUI();
+
+    if (!casesStatsAnimated) {
+        requestAnimationFrame(animateCasesStats);
+    }
 }
 
 function renderCaseCard(c) {
@@ -2785,6 +2794,68 @@ searchInput.addEventListener('input', renderApp);
 statusFilterSelect.addEventListener('change', renderApp);
 
 // --- REVIEWS SECTION ---
+function animateStatNumber(element, target, options = {}) {
+    if (!element) return;
+
+    const duration = options.duration || 900;
+    const decimals = options.decimals ?? 0;
+    const prefix = options.prefix || '';
+    const numericTarget = Number(target) || 0;
+
+    element.textContent = `${prefix}${(0).toFixed(decimals)}`;
+
+    const startTime = performance.now();
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+    function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = numericTarget * easeOut(progress);
+        element.textContent = `${prefix}${value.toFixed(decimals)}`;
+
+        if (progress < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            element.textContent = `${prefix}${numericTarget.toFixed(decimals)}`;
+        }
+    }
+
+    requestAnimationFrame(tick);
+}
+
+function animateCasesStats() {
+    if (casesStatsAnimated) return;
+    casesStatsAnimated = true;
+
+    [
+        'statTotal',
+        'statReady',
+        'statWaiting',
+        'statPending',
+        'statEscalated',
+        'statResolved',
+        'statRejected'
+    ].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) animateStatNumber(el, parseInt(el.textContent, 10) || 0);
+    });
+}
+
+function animateReviewsStats() {
+    if (reviewsStatsAnimated) return;
+    reviewsStatsAnimated = true;
+
+    ['revStatTotal', 'revStatPending', 'revStatSuccessful'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) animateStatNumber(el, parseInt(el.textContent, 10) || 0);
+    });
+
+    const bonusEl = document.getElementById('revStatBonus');
+    if (bonusEl) {
+        const amount = parseFloat(bonusEl.textContent.replace(/[^0-9.-]/g, '')) || 0;
+        animateStatNumber(bonusEl, amount, { prefix: '$', decimals: 2 });
+    }
+}
+
 function renderReviews() {
     const filtered = reviews.filter(r => {
         const sVal = reviewStatusFilter.value;
@@ -2806,6 +2877,10 @@ function renderReviews() {
 
     const totalBonus = reviews.reduce((sum, r) => sum + (r.status === 'Successful' ? (parseFloat(r.bonus) || 0) : 0), 0);
     document.getElementById('revStatBonus').textContent = `$${totalBonus.toFixed(2)}`;
+
+    if (!reviewsStatsAnimated) {
+        requestAnimationFrame(animateReviewsStats);
+    }
 
     if (filtered.length === 0) {
         reviewTableBody.innerHTML = `<tr><td colspan="7" class="review-empty">No reviews found.</td></tr>`;
