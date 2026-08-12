@@ -998,7 +998,14 @@ button {
 }
 
 .wave-hand {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    font-size: 21px;
+    margin-left: -1px;
     transform-origin: 70% 70%;
     animation: wave 1.6s ease-in-out 0.4s both;
 }
@@ -2797,7 +2804,7 @@ statusFilterSelect.addEventListener('change', renderApp);
 function animateStatNumber(element, target, options = {}) {
     if (!element) return;
 
-    const duration = options.duration || 900;
+    const duration = options.duration || 1450;
     const decimals = options.decimals ?? 0;
     const prefix = options.prefix || '';
     const numericTarget = Number(target) || 0;
