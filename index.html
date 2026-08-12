@@ -351,7 +351,7 @@ button {
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(7, minmax(110px, 1fr));
+    grid-template-columns: repeat(8, minmax(110px, 1fr));
     gap: 12px;
     margin-bottom: 26px;
 }
@@ -708,6 +708,192 @@ button {
 .restore-btn {
     border-color: var(--cyan);
     color: var(--cyan);
+}
+
+/* PRODUCTIVITY + CASE ACTIVITY FEATURES */
+.stat-productivity {
+    border-color: rgba(255,135,215,.32);
+    background: linear-gradient(145deg, rgba(255,135,215,.07), rgba(18,22,39,.82));
+}
+.stat-productivity::after { background: var(--pink); }
+
+.case-card {
+    overflow: hidden;
+}
+
+.quick-actions {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 4;
+}
+
+.case-card:hover .quick-actions,
+.case-card:focus-within .quick-actions {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.quick-action {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(12,16,29,.92);
+    color: var(--muted);
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    transition: .16s ease;
+}
+.quick-action:hover {
+    color: white;
+    border-color: rgba(209,140,255,.65);
+    background: #1a2035;
+    transform: translateY(-1px);
+}
+.quick-action.resolve:hover { color: var(--teal); border-color: rgba(56,239,125,.55); }
+.quick-action.danger:hover { color: var(--red); border-color: rgba(255,127,150,.55); }
+.quick-action .icon-line { width: 16px; height: 16px; }
+
+.case-notes-wrap {
+    margin-top: 0;
+    min-width: 0;
+}
+
+.case-notes-wrap .case-notes {
+    margin: 0;
+    line-height: 1.65;
+}
+
+.notes-more {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--purple);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Card view: long descriptions stay compact instead of making the card huge. */
+.cases-grid:not(.list-mode) .case-notes-wrap .case-notes.is-clamped {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    max-height: calc(1.65em * 3);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* Card view: also clamp unbroken/very long text strings (e.g. HAAAAAAA...) */
+.cases-grid:not(.list-mode) .case-notes-wrap {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+.cases-grid:not(.list-mode) .case-notes-wrap .case-notes {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.cases-grid:not(.list-mode) .case-notes-wrap .case-notes.is-expanded {
+    display: block;
+    overflow: visible;
+}
+
+/* Timeline is a card-view detail only. */
+.cases-grid.list-mode .activity-timeline {
+    display: none !important;
+}
+
+.activity-timeline {
+    margin-top: 14px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+}
+.activity-timeline summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #cbd2e2;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .04em;
+}
+.activity-timeline summary::-webkit-details-marker { display:none; }
+.activity-timeline summary::after {
+    content: '⌄';
+    color: var(--muted);
+    font-size: 14px;
+    transition: transform .18s ease;
+}
+.activity-timeline[open] summary::after { transform: rotate(180deg); }
+.timeline-list {
+    position: relative;
+    margin: 13px 0 2px 6px;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+.timeline-list::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: linear-gradient(var(--purple), rgba(104,221,255,.08));
+}
+.timeline-item { position: relative; min-width: 0; }
+.timeline-dot {
+    position: absolute;
+    left: -18px;
+    top: 4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow: 0 0 10px rgba(209,140,255,.5);
+}
+.timeline-title { color: #e9edf7; font-size: 11px; font-weight: 700; }
+.timeline-time { color: var(--muted); font-size: 10px; margin-top: 2px; }
+
+/* Small celebration overlay for successful resolutions. */
+.confetti-piece {
+    position: fixed;
+    width: 7px;
+    height: 12px;
+    top: 45%;
+    left: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    border-radius: 2px;
+    animation: confettiFall 900ms cubic-bezier(.15,.75,.3,1) forwards;
+}
+@keyframes confettiFall {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rot)) scale(.85); opacity: 0; }
+}
+
+@media (max-width: 850px) {
+    .quick-actions { opacity: 1; transform: none; pointer-events: auto; }
 }
 
 /* EMPTY STATE */
@@ -1405,6 +1591,13 @@ button {
 }
 
 /* Notes / descriptions always occupy one line. */
+.cases-grid.list-mode .case-notes-wrap {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .cases-grid.list-mode .case-notes {
     min-width: 0;
     width: 100%;
@@ -1418,8 +1611,14 @@ button {
     text-overflow: ellipsis;
 }
 
+.cases-grid.list-mode .notes-more {
+    display: none !important;
+}
+
 /* Keep attachment previews out of the compact one-line layout. */
-.cases-grid.list-mode .evidence-section {
+.cases-grid.list-mode .evidence-section,
+.cases-grid.list-mode .activity-timeline,
+.cases-grid.list-mode .legacy-actions {
     display: none;
 }
 
@@ -1449,6 +1648,197 @@ button {
     }
 }
 
+
+
+/* Quick actions replace the older persistent action row. Keep the row only as a fallback for deleted/restore states. */
+.case-card:not(.status-deleted) .legacy-actions { display: none; }
+.cases-grid.list-mode .case-card:not(.status-deleted) .legacy-actions { display: none; }
+.cases-grid.list-mode .quick-actions { opacity: 1; transform: none; pointer-events: auto; position: static; grid-column: 6; }
+.cases-grid.list-mode .case-card { position: relative; }
+@media (max-width: 850px) {
+    .cases-grid.list-mode .quick-actions { position: static; grid-column: auto; }
+}
+
+
+/* =========================================================
+   FINAL LIST/CARD VIEW FIX
+   Card view keeps the Activity Timeline.
+   List view stays compact, single-line, and keeps quick actions.
+   ========================================================= */
+.cases-grid.list-mode {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+}
+
+.cases-grid.list-mode .case-card {
+    display: grid !important;
+    grid-template-columns: 112px minmax(220px, 1.05fr) minmax(82px, .45fr) minmax(120px, .65fr) minmax(240px, 1.6fr) max-content !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    row-gap: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 68px !important;
+    height: 68px !important;
+    padding: 9px 12px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .quick-actions {
+    grid-column: 6 !important;
+    grid-row: 1 !important;
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 5px !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    margin: 0 !important;
+}
+
+.cases-grid.list-mode .quick-action {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    padding: 0 !important;
+    border-radius: 9px !important;
+}
+
+.cases-grid.list-mode .card-top {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+.cases-grid.list-mode .status-label,
+.cases-grid.list-mode .case-age {
+    white-space: nowrap !important;
+}
+
+.cases-grid.list-mode .case-age {
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    font-size: 11px !important;
+}
+
+.cases-grid.list-mode .user-info {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+.cases-grid.list-mode .user-info > div:last-child {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .user-info h4,
+.cases-grid.list-mode .user-info p {
+    margin-right: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.cases-grid.list-mode .avatar {
+    flex: 0 0 39px !important;
+    width: 39px !important;
+    height: 39px !important;
+    border-radius: 10px !important;
+}
+
+.cases-grid.list-mode .case-info {
+    display: contents !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.cases-grid.list-mode .case-info > div {
+    min-width: 0 !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+.cases-grid.list-mode .case-info > div:nth-child(1) {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+}
+
+.cases-grid.list-mode .case-info > div:nth-child(2) {
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+}
+
+.cases-grid.list-mode .provider-tag,
+.cases-grid.list-mode .issue-tag {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.cases-grid.list-mode .case-notes-wrap {
+    grid-column: 5 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .case-notes {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* No timeline, description expansion, proof previews, or old action row in list mode. */
+.cases-grid.list-mode .activity-timeline,
+.cases-grid.list-mode .evidence-section,
+.cases-grid.list-mode .legacy-actions,
+.cases-grid.list-mode .notes-more {
+    display: none !important;
+}
+
+/* Card view: timeline is available only here. */
+.cases-grid:not(.list-mode) .activity-timeline {
+    display: block;
+}
+
+@media (max-width: 1100px) {
+    .cases-grid.list-mode .case-card {
+        min-width: 980px !important;
+    }
+}
 
 /* ===== POLISHED UI PASS =====
    Visual refresh based on the reference modal UI.
@@ -1898,6 +2288,11 @@ button {
             <div class="stat-number" id="statRejected">0</div>
             <div class="stat-sub">Closed</div>
         </div>
+        <div class="stat-card stat-productivity">
+            <div class="stat-title">Resolved Today</div>
+            <div class="stat-number" id="statResolvedToday">0</div>
+            <div class="stat-sub" id="statResolutionStreak">🔥 0 day streak</div>
+        </div>
     </div>
 
     <!-- FILTER BAR -->
@@ -2255,6 +2650,19 @@ let reviews = JSON.parse(localStorage.getItem('escalation_reviews')) || [
     }
 ];
 
+function ensureCaseHistory(c) {
+    if (!Array.isArray(c.activity) || c.activity.length === 0) {
+        const createdAt = c.createdAt || Date.now();
+        c.activity = [{ type: 'created', status: c.status || 'ready', at: createdAt }];
+        if (c.status && c.status !== 'ready') {
+            c.activity.push({ type: 'status', status: c.status, at: createdAt });
+        }
+    }
+    return c;
+}
+
+cases = cases.map(ensureCaseHistory);
+
 let currentFilter = 'all'; 
 let currentMode = 'cases'; 
 let currentUploadedProofs = [];
@@ -2467,7 +2875,7 @@ function setupGearDropdown() {
             try {
                 const data = JSON.parse(event.target.result);
                 if (data.cases || data.reviews) {
-                    if (data.cases) cases = data.cases;
+                    if (data.cases) cases = data.cases.map(ensureCaseHistory);
                     if (data.reviews) reviews = data.reviews;
                     if (data.userName) {
                         localStorage.setItem('escalation_user_name', data.userName);
@@ -2654,23 +3062,89 @@ function renderApp() {
     }
 }
 
+function formatActivityStatus(status) {
+    const labels = {
+        ready: 'Ready to Escalate',
+        waiting: 'Waiting for User',
+        pending: 'Pending Escalation',
+        escalated: 'Escalated',
+        resolved: 'Resolved',
+        rejected: 'Rejected',
+        deleted: 'Deleted'
+    };
+    return labels[status] || status || 'Updated';
+}
+
+function formatTimelineTime(timestamp) {
+    if (!timestamp) return 'Unknown time';
+    return new Date(timestamp).toLocaleString([], {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+    });
+}
+
+function renderTimeline(c) {
+    const activity = Array.isArray(c.activity) ? [...c.activity].sort((a,b) => (a.at || 0) - (b.at || 0)) : [];
+    if (!activity.length) return '';
+
+    return `
+        <details class="activity-timeline">
+            <summary><span>Activity Timeline</span><span>${activity.length} event${activity.length === 1 ? '' : 's'}</span></summary>
+            <div class="timeline-list">
+                ${activity.map((event, index) => `
+                    <div class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <div class="timeline-title">${event.type === 'created' ? 'Case created' : `Status changed to ${escapeHtml(formatActivityStatus(event.status))}`}</div>
+                        <div class="timeline-time">${escapeHtml(formatTimelineTime(event.at))}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </details>
+    `;
+}
+
 function renderCaseCard(c) {
-    const checksCount = Object.values(c.checks || {}).filter(Boolean).length;
     const isDeleted = c.status === 'deleted';
     const proofsList = c.proofs || [];
     const avatarInitial = (c.userEmail || 'U').charAt(0).toUpperCase();
 
     return `
-        <div class="case-card status-${c.status}">
+        <div class="case-card status-${c.status}" data-case-id="${escapeHtml(c.id)}">
+            <div class="quick-actions" aria-label="Quick actions">
+                ${!isDeleted ? `
+                    <button class="quick-action" onclick="editCase('${c.id}')" title="Edit Case" aria-label="Edit Case">
+                        <svg class="icon-line" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>
+                    </button>
+                    <button class="quick-action" onclick="focusTimeline('${c.id}')" title="View Timeline" aria-label="View Timeline">
+                        <svg class="icon-line" viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 7h10l-2 3h8l-2 3h-6l-2 3H4"/></svg>
+                    </button>
+                    ${c.status !== 'resolved' ? `
+                        <button class="quick-action resolve" onclick="quickResolveCase('${c.id}')" title="Mark Resolved" aria-label="Mark Resolved">
+                            <svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+                        </button>
+                    ` : ''}
+                    <button class="quick-action danger" onclick="deleteCase('${c.id}')" title="Delete Case" aria-label="Delete Case">
+                        <svg class="icon-line" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                ` : `
+                    <button class="quick-action" onclick="restoreCase('${c.id}')" title="Restore Case" aria-label="Restore Case">
+                        <svg class="icon-line" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
+                    </button>
+                    <button class="quick-action danger" onclick="permanentlyDeleteCase('${c.id}')" title="Delete Forever" aria-label="Delete Forever">
+                        <svg class="icon-line" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                `}
+            </div>
+
             <div class="card-top">
-                <span class="status-label">${c.status.toUpperCase()}</span>
-                <span class="case-age"><svg class="icon-line" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> ${c.caseDate || 'No Date'}</span>
+                <span class="status-label">${escapeHtml(formatActivityStatus(c.status).toUpperCase())}</span>
+                <span class="case-age"><svg class="icon-line" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> ${escapeHtml(c.caseDate || 'No Date')}</span>
             </div>
             <div class="user-info">
-                <div class="avatar">${avatarInitial}</div>
+                <div class="avatar">${escapeHtml(avatarInitial)}</div>
                 <div>
                     <h4>${escapeHtml(c.userEmail || 'No Email')}</h4>
-                    <p>ID: ${escapeHtml(c.userId)}${c.rowNum ? ` | Row: #${escapeHtml(c.rowNum)}` : ''}</p>
+                    <p>ID: ${escapeHtml(c.userId || '')}${c.rowNum ? ` | Row: #${escapeHtml(c.rowNum)}` : ''}</p>
                 </div>
             </div>
             <div class="case-info">
@@ -2680,17 +3154,20 @@ function renderCaseCard(c) {
                 </div>
                 <div>
                     <span class="info-label">Category</span>
-                    <span class="issue-tag">${escapeHtml(c.issueCategory)}</span>
+                    <span class="issue-tag">${escapeHtml(c.issueCategory || 'N/A')}</span>
                 </div>
             </div>
-            <p class="case-notes" title="${escapeHtml(c.notes || '')}">${escapeHtml(c.notes || '')}</p>
+            <div class="case-notes-wrap">
+                <p class="case-notes${(c.notes || '').length > 150 ? ' is-clamped' : ''}" title="${escapeHtml(c.notes || '')}">${escapeHtml(c.notes || '')}</p>
+                ${(c.notes || '').length > 150 ? `<button class="notes-more" type="button" onclick="toggleCaseNotes('${c.id}', this)">See more</button>` : ''}
+            </div>
 
             ${proofsList.length > 0 ? `
                 <div class="evidence-section">
                     <div class="evidence-title">Proof Attachments (${proofsList.length})</div>
                     <div class="proof-preview">
                         ${proofsList.map(src => `
-                            <a href="${src}" target="_blank" class="proof-thumb">
+                            <a href="${src}" target="_blank" rel="noopener" class="proof-thumb">
                                 <img src="${src}" alt="Proof Attachment">
                             </a>
                         `).join('')}
@@ -2698,7 +3175,9 @@ function renderCaseCard(c) {
                 </div>
             ` : ''}
 
-            <div class="card-actions">
+            ${renderTimeline(c)}
+
+            <div class="card-actions legacy-actions">
                 ${!isDeleted ? `
                     <button class="card-btn primary-action" onclick="editCase('${c.id}')">Edit Case</button>
                     <button class="card-btn delete-btn" onclick="deleteCase('${c.id}')" aria-label="Delete case"><svg class="icon-line" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
@@ -2727,6 +3206,44 @@ function updateNavCounts() {
     document.getElementById('reviewsNavCount').textContent = reviews.length;
 }
 
+function getResolvedEvents(c) {
+    return (Array.isArray(c.activity) ? c.activity : [])
+        .filter(event => event.type === 'status' && event.status === 'resolved' && event.at)
+        .map(event => event.at);
+}
+
+function localDateKey(timestamp) {
+    const d = new Date(timestamp);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
+function calculateResolutionStats() {
+    const resolvedDates = new Set();
+    let resolvedToday = 0;
+    const todayKey = localDateKey(Date.now());
+
+    cases.forEach(c => {
+        getResolvedEvents(c).forEach(timestamp => {
+            const key = localDateKey(timestamp);
+            resolvedDates.add(key);
+            if (key === todayKey) resolvedToday++;
+        });
+    });
+
+    let streak = 0;
+    const cursor = new Date();
+    cursor.setHours(0, 0, 0, 0);
+    while (resolvedDates.has(localDateKey(cursor.getTime()))) {
+        streak++;
+        cursor.setDate(cursor.getDate() - 1);
+    }
+
+    return { resolvedToday, streak };
+}
+
 function updateStats() {
     const activeCases = cases.filter(c => c.status !== 'deleted');
     document.getElementById('statTotal').textContent = activeCases.length;
@@ -2736,6 +3253,10 @@ function updateStats() {
     document.getElementById('statEscalated').textContent = activeCases.filter(c => c.status === 'escalated').length;
     document.getElementById('statResolved').textContent = activeCases.filter(c => c.status === 'resolved').length;
     document.getElementById('statRejected').textContent = activeCases.filter(c => c.status === 'rejected').length;
+
+    const productivity = calculateResolutionStats();
+    document.getElementById('statResolvedToday').textContent = productivity.resolvedToday;
+    document.getElementById('statResolutionStreak').textContent = `🔥 ${productivity.streak} day${productivity.streak === 1 ? '' : 's'} streak`;
 }
 
 // --- CASE ACTIONS ---
@@ -2756,21 +3277,24 @@ cancelModalBtn.addEventListener('click', () => caseModal.classList.remove('show'
 caseForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const id = document.getElementById('caseId').value;
-    
+    const existing = id ? cases.find(c => c.id === id) : null;
+    const nextStatus = document.getElementById('caseStatus').value;
+
     let selectedProvider = caseProviderSelect.value;
     if (selectedProvider === 'Others') {
         selectedProvider = customProviderInput.value.trim() || 'Others';
     }
 
+    const now = Date.now();
     const newCase = {
-        id: id || Date.now().toString(),
+        id: id || now.toString(),
         caseDate: document.getElementById('caseDate').value || todayStr,
         userEmail: document.getElementById('userEmail').value,
         userId: document.getElementById('userId').value,
         rowNum: document.getElementById('rowNum').value,
         provider: selectedProvider,
         issueCategory: document.getElementById('issueCategory').value,
-        status: document.getElementById('caseStatus').value,
+        status: nextStatus,
         notes: document.getElementById('caseNotes').value,
         checks: {
             kyc: document.getElementById('chkKyc').checked,
@@ -2778,8 +3302,20 @@ caseForm.addEventListener('submit', (e) => {
             proof: document.getElementById('chkProof').checked
         },
         proofs: [...currentUploadedProofs],
-        createdAt: id ? (cases.find(c => c.id === id)?.createdAt || Date.now()) : Date.now()
+        createdAt: existing?.createdAt || now,
+        activity: existing?.activity ? [...existing.activity] : [{ type: 'created', status: nextStatus, at: now }]
     };
+
+    if (existing && existing.status !== nextStatus) {
+        newCase.activity.push({ type: 'status', status: nextStatus, at: now });
+    } else if (!existing && nextStatus !== 'ready') {
+        newCase.activity.push({ type: 'status', status: nextStatus, at: now });
+    }
+
+    const resolvedTransition = existing && existing.status !== 'resolved' && nextStatus === 'resolved';
+    if (nextStatus === 'resolved' && !newCase.activity.some(e => e.type === 'status' && e.status === 'resolved')) {
+        newCase.activity.push({ type: 'status', status: 'resolved', at: now });
+    }
 
     if (id) {
         const idx = cases.findIndex(c => c.id === id);
@@ -2791,6 +3327,7 @@ caseForm.addEventListener('submit', (e) => {
     saveCases();
     caseModal.classList.remove('show');
     renderApp();
+    if (resolvedTransition) celebrateResolution();
     showToast('Case saved successfully!');
 });
 
@@ -2829,9 +3366,59 @@ window.editCase = function(id) {
     caseModal.classList.add('show');
 };
 
+window.toggleCaseNotes = function(id, button) {
+    const card = document.querySelector(`.case-card[data-case-id="${CSS.escape(String(id))}"]`);
+    if (!card) return;
+    const notes = card.querySelector('.case-notes');
+    if (!notes) return;
+    const expanded = notes.classList.toggle('is-expanded');
+    notes.classList.toggle('is-clamped', !expanded);
+    button.textContent = expanded ? 'See less' : 'See more';
+};
+
+window.focusTimeline = function(id) {
+    const details = document.querySelector(`.case-card[data-case-id="${CSS.escape(String(id))}"] .activity-timeline`);
+    if (!details) return;
+    details.open = true;
+    details.scrollIntoView({ behavior: 'smooth', block: 'center' });
+};
+
+window.quickResolveCase = function(id) {
+    const c = cases.find(item => item.id === id);
+    if (!c || c.status === 'resolved' || c.status === 'deleted') return;
+
+    const previousStatus = c.status;
+    c.status = 'resolved';
+    c.activity = Array.isArray(c.activity) ? c.activity : [{ type: 'created', status: previousStatus, at: c.createdAt || Date.now() }];
+    c.activity.push({ type: 'status', status: 'resolved', at: Date.now() });
+    saveCases();
+    renderApp();
+    celebrateResolution();
+    showToast('Case marked as resolved!');
+};
+
+function celebrateResolution() {
+    const pieces = 26;
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < pieces; i++) {
+        const el = document.createElement('span');
+        el.className = 'confetti-piece';
+        el.style.setProperty('--dx', `${(Math.random() - 0.5) * 460}px`);
+        el.style.setProperty('--dy', `${120 + Math.random() * 260}px`);
+        el.style.setProperty('--rot', `${Math.random() * 720 - 360}deg`);
+        el.style.background = ['#d18cff','#68ddff','#69f0c1','#ffe26d','#ff9d70','#ff87d7'][i % 6];
+        el.style.animationDelay = `${Math.random() * 90}ms`;
+        fragment.appendChild(el);
+        setTimeout(() => el.remove(), 1100);
+    }
+    document.body.appendChild(fragment);
+}
+
 window.deleteCase = function(id) {
     const c = cases.find(item => item.id === id);
     if (c) {
+        c.activity = Array.isArray(c.activity) ? c.activity : [];
+        c.activity.push({ type: 'status', status: 'deleted', at: Date.now() });
         c.status = 'deleted';
         saveCases();
         renderApp();
@@ -2842,6 +3429,8 @@ window.deleteCase = function(id) {
 window.restoreCase = function(id) {
     const c = cases.find(item => item.id === id);
     if (c) {
+        c.activity = Array.isArray(c.activity) ? c.activity : [];
+        c.activity.push({ type: 'status', status: 'ready', at: Date.now() });
         c.status = 'ready';
         saveCases();
         renderApp();
@@ -2868,7 +3457,7 @@ statusFilterSelect.addEventListener('change', renderApp);
 function animateStatNumber(element, target, options = {}) {
     if (!element) return;
 
-    const duration = options.duration || 1450;
+    const duration = options.duration || 1800;
     const decimals = options.decimals ?? 0;
     const prefix = options.prefix || '';
     const numericTarget = Number(target) || 0;
@@ -2904,7 +3493,8 @@ function animateCasesStats() {
         'statPending',
         'statEscalated',
         'statResolved',
-        'statRejected'
+        'statRejected',
+        'statResolvedToday'
     ].forEach(id => {
         const el = document.getElementById(id);
         if (el) animateStatNumber(el, parseInt(el.textContent, 10) || 0);
