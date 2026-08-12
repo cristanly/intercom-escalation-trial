@@ -1306,82 +1306,146 @@ button {
     color: var(--purple) !important;
 }
 
-/* LIST VIEW MODE TRANSFORMATION - BAGONG DAGDAG */
+/* =========================================================
+   LIST VIEW — CLEAN SINGLE-LINE ROWS
+   Keeps every case aligned like a table while preserving
+   the card aesthetic. Long notes never wrap the row.
+   ========================================================= */
 .cases-grid.list-mode {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
 }
 
 .cases-grid.list-mode .case-card {
-    display: flex;
+    display: grid;
+    grid-template-columns: 118px minmax(250px, 1.35fr) 105px 150px minmax(180px, 2fr) auto;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 12px 20px;
-    border-radius: 12px;
+    gap: 18px;
+    width: 100%;
+    min-width: 1050px;
+    min-height: 70px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    box-sizing: border-box;
 }
 
+/* Status + date stay together in the first column. */
 .cases-grid.list-mode .card-top {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     gap: 4px;
-    min-width: 110px;
+    min-width: 0;
+    margin: 0;
 }
 
+.cases-grid.list-mode .case-age {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* User column */
 .cases-grid.list-mode .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
     margin: 0;
-    flex: 2;
+}
+
+.cases-grid.list-mode .user-info > div:last-child {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.cases-grid.list-mode .user-info h4,
+.cases-grid.list-mode .user-info p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 0;
 }
 
 .cases-grid.list-mode .avatar {
-    width: 35px;
-    height: 35px;
+    flex: 0 0 39px;
+    width: 39px;
+    height: 39px;
     font-size: 14px;
     border-radius: 10px;
 }
 
+/* Provider + issue become their own fixed grid columns. */
 .cases-grid.list-mode .case-info {
-    border: none;
-    padding: 0;
+    display: contents;
+}
+
+.cases-grid.list-mode .case-info > div {
+    min-width: 0;
     display: flex;
-    gap: 15px;
-    flex: 1.5;
+    align-items: center;
 }
 
 .cases-grid.list-mode .info-label {
     display: none;
 }
 
-.cases-grid.list-mode .evidence-section {
-    margin: 0;
-    padding: 0;
-    border: none;
+.cases-grid.list-mode .provider-tag,
+.cases-grid.list-mode .issue-tag {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.cases-grid.list-mode .evidence-title {
+/* Notes / descriptions always occupy one line. */
+.cases-grid.list-mode .case-notes {
+    min-width: 0;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Keep attachment previews out of the compact one-line layout. */
+.cases-grid.list-mode .evidence-section {
     display: none;
 }
 
 .cases-grid.list-mode .card-actions {
-    margin-top: 0;
+    margin: 0;
     display: flex;
+    align-items: center;
+    justify-content: flex-end;
     gap: 6px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .cases-grid.list-mode .card-btn {
-    height: 34px;
+    height: 38px;
+    min-height: 38px;
     padding: 0 12px;
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
-@media (max-width: 850px) {
+/* On smaller screens, preserve the single-row design and let the
+   list scroll horizontally instead of wrapping the case into a mess. */
+@media (max-width: 1100px) {
     .cases-grid.list-mode .case-card {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-    .cases-grid.list-mode .case-info {
-        justify-content: space-between;
+        min-width: 1050px;
     }
 }
 
@@ -2619,7 +2683,7 @@ function renderCaseCard(c) {
                     <span class="issue-tag">${escapeHtml(c.issueCategory)}</span>
                 </div>
             </div>
-            ${c.notes ? `<p style="font-size: 12px; color: var(--muted); margin: 12px 0 0;">${escapeHtml(c.notes)}</p>` : ''}
+            <p class="case-notes" title="${escapeHtml(c.notes || '')}">${escapeHtml(c.notes || '')}</p>
 
             ${proofsList.length > 0 ? `
                 <div class="evidence-section">
