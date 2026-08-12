@@ -1332,6 +1332,236 @@ button {
         justify-content: space-between;
     }
 }
+
+
+/* ===== POLISHED UI PASS =====
+   Visual refresh based on the reference modal UI.
+   Functionality and existing data structure remain unchanged. */
+.modal {
+    background: rgba(5, 8, 20, .82);
+    backdrop-filter: blur(14px);
+    padding: 24px;
+}
+
+.modal-content {
+    width: min(900px, 100%);
+    max-height: 92vh;
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 100% 0, rgba(104,221,255,.07), transparent 28%),
+        radial-gradient(circle at 0 0, rgba(209,140,255,.10), transparent 34%),
+        #0f1424;
+    border: 1px solid rgba(255,255,255,.12);
+    padding: 30px;
+    box-shadow: 0 30px 90px rgba(0,0,0,.58), 0 0 45px rgba(132,96,255,.08);
+}
+
+.modal-header {
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    letter-spacing: -.02em;
+}
+
+.close-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #151b2e;
+    color: #d9deed;
+    border-radius: 12px;
+    transition: .18s ease;
+}
+
+.close-btn .icon-line {
+    width: 18px;
+    height: 18px;
+}
+
+.close-btn:hover {
+    color: white;
+    border-color: rgba(209,140,255,.65);
+    background: #1b2238;
+    transform: translateY(-1px);
+}
+
+.form-grid {
+    gap: 18px;
+}
+
+.form-group {
+    gap: 9px;
+}
+
+.form-group label {
+    color: #9da6bd;
+    font-size: 10px;
+    letter-spacing: .08em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    min-height: 46px;
+    background: #0b1020;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #f4f6fb;
+    transition: .18s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #667087;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: rgba(255,255,255,.16);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: rgba(209,140,255,.75);
+    box-shadow: 0 0 0 3px rgba(209,140,255,.08);
+}
+
+.form-group textarea {
+    min-height: 100px;
+}
+
+.modal-section-title {
+    margin: 28px 0 13px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .10em;
+    color: #c9d0e0;
+}
+
+.upload-area {
+    min-height: 112px;
+    border-radius: 14px;
+    border: 1px dashed rgba(255,255,255,.16);
+    background: rgba(255,255,255,.025);
+    transition: .18s ease;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: rgba(104,221,255,.65);
+    background: rgba(104,221,255,.035);
+}
+
+.upload-label {
+    color: #9da6bd;
+}
+
+.upload-label strong {
+    color: #8de6ff;
+}
+
+.modal-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.07);
+    gap: 12px;
+}
+
+.cancel-btn,
+.save-btn {
+    min-height: 50px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 20px;
+    transition: .18s ease;
+}
+
+.cancel-btn {
+    min-width: 100px;
+    background: #101628;
+    border: 1px solid rgba(255,255,255,.11);
+    color: #aeb6ca;
+}
+
+.cancel-btn:hover {
+    color: #f1f3f8;
+    border-color: rgba(255,255,255,.20);
+    background: #171e33;
+}
+
+.save-btn {
+    min-width: 138px;
+    border: 1px solid #c48cff;
+    color: #fff;
+    background: linear-gradient(135deg, #5d3d89 0%, #34496f 100%);
+    box-shadow: 0 8px 24px rgba(132,78,210,.18);
+}
+
+.save-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(132,78,210,.28);
+}
+
+/* Keep the review modal consistent with the main case modal. */
+.review-modal-card {
+    background:
+        radial-gradient(circle at 100% 0, rgba(104,221,255,.07), transparent 28%),
+        radial-gradient(circle at 0 0, rgba(209,140,255,.10), transparent 34%),
+        #0f1424;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 22px;
+    box-shadow: 0 30px 90px rgba(0,0,0,.58), 0 0 45px rgba(132,96,255,.08);
+}
+
+.review-modal-head .close-btn {
+    color: #d9deed;
+}
+
+.review-form-group input,
+.review-form-group select {
+    background: #0b1020;
+    border-color: rgba(255,255,255,.10);
+    color: #f4f6fb;
+    border-radius: 12px;
+}
+
+.review-form-group input:focus,
+.review-form-group select:focus {
+    border-color: rgba(209,140,255,.75);
+    box-shadow: 0 0 0 3px rgba(209,140,255,.08);
+}
+
+@media (max-width: 640px) {
+    .modal {
+        padding: 12px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+}
+
 </style>
 </head>
 
