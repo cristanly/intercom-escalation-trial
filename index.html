@@ -351,7 +351,7 @@ button {
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(8, minmax(110px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 12px;
     margin-bottom: 26px;
 }
@@ -1559,6 +1559,13 @@ button {
     margin-right: 0;
 }
 
+.cases-grid.list-mode .avatar {
+    flex: 0 0 39px;
+    width: 39px;
+    height: 39px;
+    font-size: 14px;
+    border-radius: 10px;
+}
 
 /* Provider + issue become their own fixed grid columns. */
 .cases-grid.list-mode .case-info {
@@ -1669,7 +1676,7 @@ button {
 
 .cases-grid.list-mode .case-card {
     display: grid !important;
-    grid-template-columns: 112px minmax(220px, 1.15fr) minmax(90px, .5fr) minmax(120px, .7fr) minmax(240px, 1.6fr) max-content !important;
+    grid-template-columns: 112px minmax(220px, 1.05fr) minmax(82px, .45fr) minmax(120px, .65fr) minmax(240px, 1.6fr) max-content !important;
     align-items: center !important;
     column-gap: 10px !important;
     row-gap: 0 !important;
@@ -1751,6 +1758,12 @@ button {
     white-space: nowrap !important;
 }
 
+.cases-grid.list-mode .avatar {
+    flex: 0 0 39px !important;
+    width: 39px !important;
+    height: 39px !important;
+    border-radius: 10px !important;
+}
 
 .cases-grid.list-mode .case-info {
     display: contents !important;
@@ -2126,18 +2139,6 @@ button {
             Dashboard
         </button>
 
-        <button class="nav-item" data-filter="ready">
-            <span class="nav-icon"><svg class="icon-line" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span>
-            Ready to Escalate
-            <span class="nav-count count-ready" id="readyNavCount">0</span>
-        </button>
-
-        <button class="nav-item" data-filter="waiting">
-            <span class="nav-icon"><svg class="icon-line" viewBox="0 0 24 24"><path d="M21 11.5a8 8 0 0 1-8.5 8A8.7 8.7 0 0 1 8 18.3L3 20l1.7-4.6A8 8 0 1 1 21 11.5Z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span>
-            Waiting for User
-            <span class="nav-count count-waiting" id="waitingNavCount">0</span>
-        </button>
-
         <button class="nav-item" data-filter="pending">
             <span class="nav-icon"><svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
             Pending
@@ -2245,16 +2246,6 @@ button {
             <div class="stat-number" id="statTotal">0</div>
             <div class="stat-sub">Active escalations</div>
         </div>
-        <div class="stat-card stat-cyan">
-            <div class="stat-title">Ready</div>
-            <div class="stat-number" id="statReady">0</div>
-            <div class="stat-sub">To escalate</div>
-        </div>
-        <div class="stat-card stat-yellow">
-            <div class="stat-title">Waiting</div>
-            <div class="stat-number" id="statWaiting">0</div>
-            <div class="stat-sub">Awaiting response</div>
-        </div>
         <div class="stat-card stat-orange">
             <div class="stat-title">Pending</div>
             <div class="stat-number" id="statPending">0</div>
@@ -2291,8 +2282,6 @@ button {
         <!-- Status Filter is ONLY visible in Dashboard mode -->
         <select class="filter-select" id="statusFilterSelect">
             <option value="all">All Statuses</option>
-            <option value="ready">Ready to Escalate</option>
-            <option value="waiting">Waiting for User</option>
             <option value="pending">Pending</option>
             <option value="escalated">Escalated</option>
             <option value="resolved">Resolved</option>
@@ -2466,8 +2455,6 @@ button {
                 <div class="form-group full">
                     <label>STATUS</label>
                     <select id="caseStatus">
-                        <option value="ready">Ready to Escalate</option>
-                        <option value="waiting">Waiting for User</option>
                         <option value="pending">Pending</option>
                         <option value="escalated">Escalated</option>
                         <option value="resolved">Resolved</option>
@@ -3093,6 +3080,7 @@ function renderTimeline(c) {
 function renderCaseCard(c) {
     const isDeleted = c.status === 'deleted';
     const proofsList = c.proofs || [];
+    const avatarInitial = (c.userEmail || 'U').charAt(0).toUpperCase();
 
     return `
         <div class="case-card status-${c.status}" data-case-id="${escapeHtml(c.id)}">
@@ -3127,6 +3115,7 @@ function renderCaseCard(c) {
                 <span class="case-age"><svg class="icon-line" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> ${escapeHtml(c.caseDate || 'No Date')}</span>
             </div>
             <div class="user-info">
+                <div class="avatar">${escapeHtml(avatarInitial)}</div>
                 <div>
                     <h4>${escapeHtml(c.userEmail || 'No Email')}</h4>
                     <p>ID: ${escapeHtml(c.userId || '')}${c.rowNum ? ` | Row: #${escapeHtml(c.rowNum)}` : ''}</p>
@@ -3180,9 +3169,6 @@ function updateNavCounts() {
     cases.forEach(c => {
         if (counts[c.status] !== undefined) counts[c.status]++;
     });
-
-    document.getElementById('readyNavCount').textContent = counts.ready;
-    document.getElementById('waitingNavCount').textContent = counts.waiting;
     document.getElementById('pendingNavCount').textContent = counts.pending;
     document.getElementById('escalatedNavCount').textContent = counts.escalated;
     document.getElementById('resolvedNavCount').textContent = counts.resolved;
@@ -3232,8 +3218,6 @@ function calculateResolutionStats() {
 function updateStats() {
     const activeCases = cases.filter(c => c.status !== 'deleted');
     document.getElementById('statTotal').textContent = activeCases.length;
-    document.getElementById('statReady').textContent = activeCases.filter(c => c.status === 'ready').length;
-    document.getElementById('statWaiting').textContent = activeCases.filter(c => c.status === 'waiting').length;
     document.getElementById('statPending').textContent = activeCases.filter(c => c.status === 'pending').length;
     document.getElementById('statEscalated').textContent = activeCases.filter(c => c.status === 'escalated').length;
     document.getElementById('statResolved').textContent = activeCases.filter(c => c.status === 'resolved').length;
@@ -3419,7 +3403,7 @@ window.restoreCase = function(id) {
         c.status = 'ready';
         saveCases();
         renderApp();
-        showToast('Case restored to Ready to Escalate.');
+        showToast('Case restored to Pending.');
     }
 };
 
@@ -3473,8 +3457,6 @@ function animateCasesStats() {
 
     [
         'statTotal',
-        'statReady',
-        'statWaiting',
         'statPending',
         'statEscalated',
         'statResolved',
