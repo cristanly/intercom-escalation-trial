@@ -665,7 +665,7 @@ button {
 
 .case-info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
     padding: 15px 0;
     border-top: 1px solid var(--border);
@@ -701,6 +701,21 @@ button {
     color: var(--cyan);
     background: rgba(104,221,255,.12);
     border: 1px solid rgba(104,221,255,.25);
+    padding: 6px 9px;
+    border-radius: 8px;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.mission-tag {
+    display: inline-flex;
+    max-width: 100%;
+    color: var(--purple);
+    background: rgba(209,140,255,.12);
+    border: 1px solid rgba(209,140,255,.25);
     padding: 6px 9px;
     border-radius: 8px;
     font-size: 11px;
@@ -1596,11 +1611,11 @@ button {
 
 .cases-grid.list-mode .case-card {
     display: grid;
-    grid-template-columns: 118px minmax(250px, 1.35fr) 105px 150px minmax(180px, 2fr) auto;
+    grid-template-columns: 118px minmax(250px, 1.35fr) minmax(150px, 1.1fr) 105px 150px minmax(180px, 2fr) auto;
     align-items: center;
     gap: 18px;
     width: 100%;
-    min-width: 1050px;
+    min-width: 1220px;
     min-height: 70px;
     padding: 10px 16px;
     border-radius: 14px;
@@ -1663,6 +1678,7 @@ button {
     display: none;
 }
 
+.cases-grid.list-mode .mission-tag,
 .cases-grid.list-mode .provider-tag,
 .cases-grid.list-mode .issue-tag {
     max-width: 100%;
@@ -1725,7 +1741,7 @@ button {
    list scroll horizontally instead of wrapping the case into a mess. */
 @media (max-width: 1100px) {
     .cases-grid.list-mode .case-card {
-        min-width: 1050px;
+        min-width: 1220px;
     }
 }
 
@@ -1912,6 +1928,74 @@ button {
 @media (max-width: 1100px) {
     .cases-grid.list-mode .case-card {
         min-width: 980px !important;
+    }
+}
+
+/* ===== MISSION / PROVIDER / CATEGORY IN DESCRIPTION AREA ===== */
+.case-meta-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: 12px;
+    margin-top: 2px;
+    min-width: 0;
+}
+
+.case-meta-item {
+    min-width: 0;
+}
+
+.case-meta-item .info-label {
+    margin-bottom: 5px;
+}
+
+.case-meta-item .mission-tag,
+.case-meta-item .provider-tag,
+.case-meta-item .issue-tag {
+    max-width: 100%;
+}
+
+.cases-grid.list-mode .case-meta-wrap {
+    grid-column: 3 / 6 !important;
+    grid-row: 1 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, .9fr) minmax(0, 1.15fr) !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .case-meta-item {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .case-meta-item .info-label {
+    display: none !important;
+}
+
+.cases-grid.list-mode .case-meta-item .mission-tag,
+.cases-grid.list-mode .case-meta-item .provider-tag,
+.cases-grid.list-mode .case-meta-item .issue-tag {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.cases-grid.list-mode .case-notes {
+    display: none !important;
+}
+
+@media (max-width: 700px) {
+    .case-meta-wrap {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
     }
 }
 
@@ -2325,6 +2409,92 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 #profileModal .profile-editor-actions button { height:36px !important; min-height:36px !important; padding:0 14px !important; min-width:0 !important; font-size:11.5px !important; line-height:1 !important; }
 #profileModal .profile-editor-actions #cancelProfileBtn { min-width:84px !important; }
 #profileModal .profile-editor-actions #saveProfileBtn { min-width:108px !important; }
+
+/* ===== CASE DESCRIPTION + META ===== */
+.case-description-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0 16px;
+}
+.case-meta-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(120px, .75fr) minmax(0, 1.15fr);
+    gap: 14px;
+    margin-bottom: 15px;
+}
+.case-meta-item {
+    min-width: 0;
+}
+.description-label {
+    color: var(--muted);
+    font-size: 10px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.case-notes-wrap {
+    min-width: 0;
+}
+.case-notes-wrap .case-notes {
+    margin: 0;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.55;
+    min-height: 42px;
+}
+
+/* List view keeps the 3 fields compact while giving Description the largest share. */
+.cases-grid.list-mode .case-card {
+    grid-template-columns: 118px minmax(250px, 1.2fr) minmax(260px, 1.35fr) minmax(300px, 3fr) auto !important;
+}
+.cases-grid.list-mode .case-description-section {
+    display: contents;
+    padding: 0 !important;
+    border: 0 !important;
+}
+.cases-grid.list-mode .case-meta-wrap {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+.cases-grid.list-mode .case-meta-item {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+.cases-grid.list-mode .case-meta-item .info-label {
+    display: none !important;
+}
+.cases-grid.list-mode .mission-tag,
+.cases-grid.list-mode .provider-tag,
+.cases-grid.list-mode .issue-tag {
+    max-width: 100% !important;
+}
+.cases-grid.list-mode .case-description-section > .case-notes-wrap {
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+.cases-grid.list-mode .description-label {
+    display: none !important;
+}
+.cases-grid.list-mode .case-description-section > .case-notes-wrap .case-notes {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    min-height: 0 !important;
+    color: var(--muted) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
 </style>
 </head>
 
@@ -3429,19 +3599,26 @@ function renderCaseCard(c) {
                     <p>ID: ${escapeHtml(c.userId || '')}${c.rowNum ? ` | Row: #${escapeHtml(c.rowNum)}` : ''}</p>
                 </div>
             </div>
-            <div class="case-info">
-                <div>
-                    <span class="info-label">Provider</span>
-                    <span class="provider-tag">${escapeHtml(c.provider || 'N/A')}</span>
+            <div class="case-description-section">
+                <div class="case-meta-wrap">
+                    <div class="case-meta-item">
+                        <span class="info-label">Mission</span>
+                        <span class="mission-tag">${escapeHtml(c.missionName || 'N/A')}</span>
+                    </div>
+                    <div class="case-meta-item">
+                        <span class="info-label">Provider</span>
+                        <span class="provider-tag">${escapeHtml(c.provider || 'N/A')}</span>
+                    </div>
+                    <div class="case-meta-item">
+                        <span class="info-label">Category</span>
+                        <span class="issue-tag">${escapeHtml(c.issueCategory || 'N/A')}</span>
+                    </div>
                 </div>
-                <div>
-                    <span class="info-label">Category</span>
-                    <span class="issue-tag">${escapeHtml(c.issueCategory || 'N/A')}</span>
+                <div class="case-notes-wrap">
+                    <div class="description-label">Description</div>
+                    <p class="case-notes${(c.notes || '').length > 150 ? ' is-clamped' : ''}" title="${escapeHtml(c.notes || '')}">${escapeHtml(c.notes || 'No description provided.')}</p>
+                    ${(c.notes || '').length > 150 ? `<button class="notes-more" type="button" onclick="toggleCaseNotes('${c.id}', this)">See more</button>` : ''}
                 </div>
-            </div>
-            <div class="case-notes-wrap">
-                <p class="case-notes${(c.notes || '').length > 150 ? ' is-clamped' : ''}" title="${escapeHtml(c.notes || '')}">${escapeHtml(c.notes || '')}</p>
-                ${(c.notes || '').length > 150 ? `<button class="notes-more" type="button" onclick="toggleCaseNotes('${c.id}', this)">See more</button>` : ''}
             </div>
 
             ${proofsList.length > 0 ? `
@@ -4271,3 +4448,146 @@ setupRainCardTool();
 </script>
 </body>
 </html>
+
+<style>
+/* ===== FINAL CASE CARD ALIGNMENT FIX ===== */
+
+/* Keep the description area roomy in card view. */
+.cases-grid:not(.list-mode) .case-description-section {
+    min-width: 0;
+    margin-top: 2px;
+}
+
+.cases-grid:not(.list-mode) .case-notes-wrap {
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.cases-grid:not(.list-mode) .case-notes {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.65em * 3);
+}
+
+/* List view: Mission / Provider / Category share one clean area,
+   Description gets its own wider column, actions stay aligned at the end. */
+.cases-grid.list-mode .case-card {
+    grid-template-columns: 112px minmax(190px, 1.05fr) minmax(260px, 1.45fr) minmax(300px, 2.2fr) max-content !important;
+    min-width: 1050px !important;
+    min-height: 74px !important;
+    height: 74px !important;
+    align-items: center !important;
+    column-gap: 14px !important;
+}
+
+.cases-grid.list-mode .case-description-section {
+    display: contents !important;
+}
+
+.cases-grid.list-mode .case-meta-wrap {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+    display: grid !important;
+    grid-template-columns: minmax(120px, 1.35fr) minmax(80px, .75fr) minmax(120px, 1.05fr) !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+}
+
+.cases-grid.list-mode .case-meta-item {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .case-meta-item .info-label {
+    display: block !important;
+    margin-bottom: 4px !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+}
+
+.cases-grid.list-mode .case-meta-item .mission-tag,
+.cases-grid.list-mode .case-meta-item .provider-tag,
+.cases-grid.list-mode .case-meta-item .issue-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.cases-grid.list-mode .case-notes-wrap {
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.cases-grid.list-mode .description-label {
+    display: block !important;
+    margin-bottom: 4px !important;
+    color: var(--muted) !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    letter-spacing: .5px !important;
+}
+
+.cases-grid.list-mode .case-notes {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    color: var(--muted) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.cases-grid.list-mode .notes-more {
+    display: none !important;
+}
+
+.cases-grid.list-mode .quick-actions {
+    grid-column: 5 !important;
+    grid-row: 1 !important;
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 5px !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    min-width: max-content !important;
+}
+
+.cases-grid.list-mode .quick-action {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    flex: 0 0 34px !important;
+}
+
+/* Never let the action buttons get squeezed or pushed into the content. */
+.cases-grid.list-mode .quick-actions button {
+    flex-shrink: 0 !important;
+}
+</style>
