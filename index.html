@@ -749,44 +749,8 @@ button {
     transform: translateY(-1px);
 }
 .quick-action.resolve:hover { color: var(--teal); border-color: rgba(56,239,125,.55); }
-.quick-action.resolve.is-resolved {
-    color: var(--teal);
-    border-color: rgba(56,239,125,.55);
-    background: rgba(56,239,125,.12);
-    box-shadow: 0 0 12px rgba(56,239,125,.12);
-}
-.quick-action.resolve.is-resolved:hover {
-    color: var(--teal);
-    border-color: var(--teal);
-    background: rgba(56,239,125,.18);
-}
-.status-change-menu {
-    position: fixed;
-    z-index: 9999;
-    min-width: 170px;
-    padding: 6px;
-    border: 1px solid rgba(209,140,255,.28);
-    border-radius: 10px;
-    background: #111629;
-    box-shadow: 0 14px 35px rgba(0,0,0,.35);
-}
-.status-change-option {
-    width: 100%;
-    display: block;
-    border: 0;
-    border-radius: 7px;
-    padding: 8px 10px;
-    background: transparent;
-    color: var(--text);
-    text-align: left;
-    font: inherit;
-    font-size: 12px;
-    cursor: pointer;
-}
-.status-change-option:hover {
-    background: rgba(56,239,125,.12);
-    color: var(--teal);
-}
+.quick-action.resolve.is-resolved { color: var(--teal); border-color: rgba(56,239,125,.7); background: rgba(56,239,125,.12); box-shadow: 0 0 12px rgba(56,239,125,.14); }
+.quick-action.resolve.is-resolved:hover { color: var(--teal); border-color: var(--teal); background: rgba(56,239,125,.18); }
 .quick-action.danger:hover { color: var(--red); border-color: rgba(255,127,150,.55); }
 .quick-action .icon-line { width: 16px; height: 16px; }
 
@@ -923,6 +887,7 @@ button {
     .quick-actions { opacity: 1; transform: none; pointer-events: auto; }
 }
 
+.status-picker-menu{position:fixed;z-index:10000;width:180px;padding:7px;background:#121627;border:1px solid var(--border);border-radius:12px;box-shadow:0 14px 35px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:3px}.status-picker-title{padding:6px 9px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px}.status-picker-menu button{border:0;background:transparent;color:var(--text);padding:9px;border-radius:8px;text-align:left;font-size:11px;font-weight:700}.status-picker-menu button:hover{background:rgba(209,140,255,.1);color:var(--purple)}
 /* EMPTY STATE */
 
 .empty-state {
@@ -2134,6 +2099,16 @@ button {
     display: none !important;
 }
 
+
+/* INTEGRATED RAIN CARD REJECTION */
+.rain-card-nav{color:#d9b6ff}.rain-card-nav.active{background:linear-gradient(90deg,rgba(209,140,255,.2),rgba(104,221,255,.08));border:1px solid rgba(209,140,255,.25);color:#fff;box-shadow:0 0 20px rgba(209,140,255,.08)}
+.main.rain-card-mode > *:not(.rain-card-view){display:none!important}.rain-card-view{display:none;max-width:1100px;margin:0 auto;width:100%}.main.rain-card-mode .rain-card-view{display:block}
+.rain-card-header{margin-bottom:28px}.rain-card-kicker{color:var(--purple);font-size:10px;font-weight:800;letter-spacing:1.6px;margin-bottom:7px}.rain-card-header h2{margin:0;font-size:30px}.rain-card-header p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.rain-card-panel{background:linear-gradient(145deg,rgba(22,27,45,.96),rgba(12,15,27,.96));border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:18px;box-shadow:0 12px 35px rgba(0,0,0,.16)}.rain-card-section-title{display:flex;align-items:center;gap:9px;color:var(--text);font-size:15px;font-weight:800;margin-bottom:20px}.rain-card-section-icon{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;color:var(--purple);background:rgba(209,140,255,.12);border:1px solid rgba(209,140,255,.22);font-size:12px}
+.rain-card-field{display:flex;flex-direction:column;gap:8px}.rain-card-field label,.rain-user-entry label{color:var(--muted);font-size:11px;font-weight:700}.rain-card-field input,.rain-user-entry input,.rain-card-view textarea{width:100%;background:#0a0d18;border:1px solid var(--border);border-radius:11px;color:var(--text);outline:none;padding:12px 13px;font-size:13px}.rain-card-field input:focus,.rain-user-entry input:focus,.rain-card-view textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(209,140,255,.08)}
+.rain-user-entry{position:relative;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:16px;padding:18px;margin-top:16px}.rain-user-entry-title{font-size:12px;font-weight:800;color:#e9edf7;margin-bottom:15px}.rain-user-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.rain-remove-user{position:absolute;right:14px;top:13px;border:1px solid rgba(255,127,150,.28);background:rgba(255,127,150,.06);color:var(--red);border-radius:9px;padding:7px 10px;font-size:11px;font-weight:700}.rain-card-add-user{margin-top:16px;border:1px dashed rgba(209,140,255,.35);background:rgba(209,140,255,.06);color:var(--purple);border-radius:11px;padding:10px 14px;font-size:12px;font-weight:800}
+.rain-card-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.rain-card-buttons button{border-radius:11px;padding:11px 15px;font-size:12px;font-weight:800}.rain-card-primary{border:1px solid var(--purple);background:rgba(209,140,255,.12);color:var(--purple)}.rain-card-secondary{border:1px solid var(--cyan);background:rgba(104,221,255,.08);color:var(--cyan)}.rain-card-danger{border:1px solid rgba(255,127,150,.3);background:rgba(255,127,150,.06);color:var(--red)}.rain-card-buttons button:hover{transform:translateY(-1px)}.rain-card-view textarea{min-height:270px;resize:vertical;line-height:1.75;background:#090c16}
+@media(max-width:850px){.rain-user-grid{grid-template-columns:1fr}}@media(max-width:600px){.rain-card-panel{padding:18px}.rain-card-header h2{font-size:25px}.rain-card-buttons{flex-direction:column}.rain-card-buttons button{width:100%}}
 </style>
 </head>
 
@@ -2196,16 +2171,10 @@ button {
             <span class="nav-count count-ready" id="reviewsNavCount">0</span>
         </button>
 
-        <a class="nav-item external-tool-link" href="https://card-rejection.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <span class="nav-icon">
-                <svg class="icon-line" viewBox="0 0 24 24">
-                    <path d="M14 4h6v6"/>
-                    <path d="M13 11 20 4"/>
-                    <path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1 1V5a1 1 0 0 1 1-1h6"/>
-                </svg>
-            </span>
-            Rain Card Rejections
-        </a>
+        <button class="nav-item rain-card-nav" id="rainCardNavBtn" type="button">
+            <span class="nav-icon"><svg class="icon-line" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M7 15h4"/></svg></span>
+            Rain Card Rejection
+        </button>
 
     </div>
 
@@ -2409,6 +2378,16 @@ button {
             </table>
         </div>
     </div>
+
+<section class="rain-card-view" id="rainCardView">
+<div class="rain-card-header"><div><div class="rain-card-kicker">CARD OPERATIONS</div><h2>Rain Card Rejection</h2><p>Generate your Slack rejection format in seconds.</p></div></div>
+<div class="rain-card-panel"><div class="rain-card-section-title"><span class="rain-card-section-icon">✦</span> User Details</div>
+<div class="rain-card-field"><label for="rcDate">Date</label><input type="date" id="rcDate"></div>
+<div id="rcUsersContainer"></div>
+<button class="rain-card-add-user" id="rcAddUserBtn" type="button">＋ Add Another User</button>
+<div class="rain-card-buttons"><button class="rain-card-primary" id="rcGenerateBtn" type="button">Generate Format</button><button class="rain-card-secondary" id="rcCopyBtn" type="button">Copy Format</button><button class="rain-card-danger" id="rcClearBtn" type="button">Clear All</button></div></div>
+<div class="rain-card-panel"><div class="rain-card-section-title"><span class="rain-card-section-icon">▣</span> Slack Preview</div><textarea id="rcOutput" readonly></textarea></div>
+</section>
 
 </main>
 
@@ -2915,7 +2894,7 @@ function setupNavigation() {
             btn.classList.add('active');
 
             currentMode = 'cases';
-            mainContainer.classList.remove('review-mode');
+            mainContainer.classList.remove('review-mode', 'rain-card-mode');
             currentFilter = btn.dataset.filter;
 
             if (currentFilter === 'all') {
@@ -2934,6 +2913,7 @@ function setupNavigation() {
 
         currentMode = 'reviews';
         mainContainer.classList.add('review-mode');
+        mainContainer.classList.remove('rain-card-mode');
         renderReviews();
     });
 }
@@ -3112,7 +3092,7 @@ function renderCaseCard(c) {
                     <button class="quick-action" onclick="focusTimeline('${c.id}')" title="View Timeline" aria-label="View Timeline">
                         <svg class="icon-line" viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 7h10l-2 3h8l-2 3h-6l-2 3H4"/></svg>
                     </button>
-                    <button class="quick-action resolve${c.status === 'resolved' ? ' is-resolved' : ''}" onclick="quickResolveCase('${c.id}', this)" title="${c.status === 'resolved' ? 'Resolved' : 'Mark Resolved'}" aria-label="${c.status === 'resolved' ? 'Resolved' : 'Mark Resolved'}">
+                    <button class="quick-action resolve ${c.status === 'resolved' ? 'is-resolved' : ''}" onclick="quickResolveCase('${c.id}')" title="${c.status === 'resolved' ? 'Change Status' : 'Mark Resolved'}" aria-label="${c.status === 'resolved' ? 'Change Status' : 'Mark Resolved'}">
                         <svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
                     </button>
                     <button class="quick-action danger" onclick="deleteCase('${c.id}')" title="Delete Case" aria-label="Delete Case">
@@ -3374,15 +3354,12 @@ window.focusTimeline = function(id) {
     }
 };
 
-window.quickResolveCase = function(id, button) {
+window.quickResolveCase = function(id) {
     const c = cases.find(item => item.id === id);
     if (!c || c.status === 'deleted') return;
 
-    // Clicking an already-resolved check button opens the status menu instead
-    // of doing nothing, so an accidental resolve can be undone without
-    // changing the button's position in List View.
     if (c.status === 'resolved') {
-        showStatusChangeMenu(id, button);
+        openStatusPicker(id);
         return;
     }
 
@@ -3396,71 +3373,50 @@ window.quickResolveCase = function(id, button) {
     showToast('Case marked as resolved!');
 };
 
-function closeStatusChangeMenu() {
-    const menu = document.getElementById('statusChangeMenu');
-    if (menu) menu.remove();
-}
-
-function showStatusChangeMenu(id, button) {
-    closeStatusChangeMenu();
+function openStatusPicker(id) {
+    const existing = document.getElementById('statusPickerMenu');
+    if (existing) existing.remove();
+    const btn = document.querySelector(`.case-card[data-case-id="${CSS.escape(String(id))}"] .quick-action.resolve`);
+    if (!btn) return;
 
     const menu = document.createElement('div');
-    menu.id = 'statusChangeMenu';
-    menu.className = 'status-change-menu';
-    menu.setAttribute('role', 'menu');
-
-    const statuses = [
-        ['ready', 'Ready to Escalate'],
-        ['waiting', 'Waiting for User'],
-        ['pending', 'Pending'],
-        ['escalated', 'Escalated'],
-        ['rejected', 'Rejected']
-    ];
-
-    menu.innerHTML = statuses.map(([value, label]) => `
-        <button type="button" class="status-change-option" role="menuitem" onclick="changeCaseStatus('${id}', '${value}')">${label}</button>
-    `).join('');
-
+    menu.id = 'statusPickerMenu';
+    menu.className = 'status-picker-menu';
+    menu.innerHTML = `
+        <div class="status-picker-title">Change status</div>
+        <button type="button" data-status="pending">Pending</button>
+        <button type="button" data-status="escalated">Escalated</button>
+        <button type="button" data-status="rejected">Rejected</button>
+    `;
     document.body.appendChild(menu);
-
-    const rect = button ? button.getBoundingClientRect() : null;
-    if (rect) {
-        const menuWidth = menu.offsetWidth;
-        const menuHeight = menu.offsetHeight;
-        let left = rect.right - menuWidth;
-        let top = rect.bottom + 6;
-
-        if (left < 8) left = 8;
-        if (left + menuWidth > window.innerWidth - 8) left = window.innerWidth - menuWidth - 8;
-        if (top + menuHeight > window.innerHeight - 8) top = rect.top - menuHeight - 6;
-        if (top < 8) top = 8;
-
-        menu.style.left = `${left}px`;
-        menu.style.top = `${top}px`;
-    }
+    const rect = btn.getBoundingClientRect();
+    menu.style.position = 'fixed';
+    menu.style.left = `${Math.max(8, Math.min(window.innerWidth - 190, rect.right - 180))}px`;
+    menu.style.top = `${Math.min(window.innerHeight - 250, rect.bottom + 8)}px`;
+    menu.querySelectorAll('button[data-status]').forEach(option => {
+        option.addEventListener('click', () => {
+            const c = cases.find(item => item.id === id);
+            if (!c) return;
+            const status = option.dataset.status;
+            c.status = status;
+            c.activity = Array.isArray(c.activity) ? c.activity : [];
+            c.activity.push({ type: 'status', status, at: Date.now() });
+            saveCases();
+            menu.remove();
+            renderApp();
+            showToast(`Status changed to ${formatActivityStatus(status)}.`);
+        });
+    });
+    setTimeout(() => {
+        const close = (e) => {
+            if (!menu.contains(e.target) && e.target !== btn) {
+                menu.remove();
+                document.removeEventListener('mousedown', close);
+            }
+        };
+        document.addEventListener('mousedown', close);
+    }, 0);
 }
-
-window.changeCaseStatus = function(id, status) {
-    const c = cases.find(item => item.id === id);
-    if (!c || c.status === 'deleted' || status === 'resolved') return;
-
-    c.activity = Array.isArray(c.activity) ? c.activity : [];
-    c.activity.push({ type: 'status', status, at: Date.now() });
-    c.status = status;
-    closeStatusChangeMenu();
-    saveCases();
-    renderApp();
-    showToast(`Case status changed to ${formatActivityStatus(status)}.`);
-};
-
-document.addEventListener('click', (event) => {
-    const menu = document.getElementById('statusChangeMenu');
-    if (!menu) return;
-    if (menu.contains(event.target)) return;
-    if (event.target.closest('.quick-action.resolve')) return;
-    closeStatusChangeMenu();
-});
-
 function celebrateResolution() {
     const pieces = 26;
     const fragment = document.createDocumentFragment();
@@ -3730,6 +3686,121 @@ function escapeHtml(str) {
 
 // Start App
 init();
+
+
+// --- INTEGRATED RAIN CARD REJECTION TOOL ---
+const rainCardNavBtn = document.getElementById('rainCardNavBtn');
+const rcDate = document.getElementById('rcDate');
+const rcUsersContainer = document.getElementById('rcUsersContainer');
+const rcOutput = document.getElementById('rcOutput');
+
+function rcToday() {
+    return new Date().toISOString().split('T')[0];
+}
+
+function rcFormatDate(value) {
+    if (!value) return '';
+    const [y, m, d] = value.split('-');
+    return `${m}/${d}/${y}`;
+}
+
+function rcAddUser() {
+    const n = rcUsersContainer.children.length + 1;
+    const entry = document.createElement('div');
+    entry.className = 'rain-user-entry';
+    entry.innerHTML = `
+        <div class="rain-user-entry-title">User ${n}</div>
+        <button class="rain-remove-user" type="button" onclick="rcRemoveUser(this)">Remove</button>
+        <div class="rain-user-grid">
+            <div class="rain-card-field">
+                <label>User ID</label>
+                <input type="text" class="rc-user-id" placeholder="Enter User ID">
+            </div>
+            <div class="rain-card-field">
+                <label>Email</label>
+                <input type="email" class="rc-email" placeholder="Enter email address">
+            </div>
+            <div class="rain-card-field">
+                <label>Rain ID</label>
+                <input type="text" class="rc-rain-id" placeholder="Enter Rain ID">
+            </div>
+        </div>`;
+    rcUsersContainer.appendChild(entry);
+    entry.querySelectorAll('input').forEach(input => input.addEventListener('input', rcGenerateFormat));
+    rcUpdateUserNumbers();
+    rcGenerateFormat();
+}
+
+window.rcRemoveUser = function(button) {
+    const entry = button.closest('.rain-user-entry');
+    if (entry) entry.remove();
+    if (!rcUsersContainer.children.length) rcAddUser();
+    rcUpdateUserNumbers();
+    rcGenerateFormat();
+};
+
+function rcUpdateUserNumbers() {
+    rcUsersContainer.querySelectorAll('.rain-user-entry').forEach((entry, index) => {
+        entry.querySelector('.rain-user-entry-title').textContent = `User ${index + 1}`;
+    });
+}
+
+function rcGenerateFormat() {
+    const date = rcFormatDate(rcDate.value);
+    const details = [];
+    rcUsersContainer.querySelectorAll('.rain-user-entry').forEach(user => {
+        details.push(
+            `User ID: ${user.querySelector('.rc-user-id').value.trim()}\n` +
+            `Email: ${user.querySelector('.rc-email').value.trim()}\n` +
+            `Rain ID: ${user.querySelector('.rc-rain-id').value.trim()}`
+        );
+    });
+    rcOutput.value = `@Edwin Guerrero Rain Card Rejection - ${date}\n\n${details.join('\n\n')}`;
+}
+
+async function rcCopyFormat() {
+    rcGenerateFormat();
+    try {
+        await navigator.clipboard.writeText(rcOutput.value);
+        const button = document.getElementById('rcCopyBtn');
+        const original = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = original, 2000);
+    } catch (error) {
+        alert('Failed to copy. Please try again.');
+    }
+}
+
+function rcClearAll() {
+    rcUsersContainer.innerHTML = '';
+    rcDate.value = rcToday();
+    rcAddUser();
+}
+
+function setupRainCardTool() {
+    if (!rainCardNavBtn || !rcDate || !rcUsersContainer || !rcOutput) return;
+    rcDate.value = rcToday();
+    document.getElementById('rcAddUserBtn').addEventListener('click', rcAddUser);
+    document.getElementById('rcGenerateBtn').addEventListener('click', rcGenerateFormat);
+    document.getElementById('rcCopyBtn').addEventListener('click', rcCopyFormat);
+    document.getElementById('rcClearBtn').addEventListener('click', rcClearAll);
+    rcDate.addEventListener('input', rcGenerateFormat);
+    rcDate.addEventListener('change', rcGenerateFormat);
+    rcAddUser();
+}
+
+function openRainCardTool() {
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+    rainCardNavBtn.classList.add('active');
+    currentMode = 'rain-card';
+    mainContainer.classList.remove('review-mode');
+    mainContainer.classList.add('rain-card-mode');
+    statusFilterSelect.style.display = 'none';
+    renderApp();
+}
+
+if (rainCardNavBtn) rainCardNavBtn.addEventListener('click', openRainCardTool);
+setupRainCardTool();
 </script>
 </body>
 </html>
