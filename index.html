@@ -121,13 +121,15 @@ button {
     min-height: 100vh;
     background: rgba(8,10,18,.78);
     border-right: 1px solid var(--border);
-    padding: 24px 16px;
+    padding: 24px 16px 16px;
     position: sticky;
     top: 0;
     height: 100vh;
     backdrop-filter: blur(20px);
     z-index: 20;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .brand {
@@ -166,6 +168,91 @@ button {
 
 .nav-section {
     margin-bottom: 24px;
+}
+
+.sidebar-dashboard {
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,.09);
+}
+
+.sidebar-dashboard .nav-item {
+    margin-bottom: 0;
+}
+
+.sidebar-profile {
+    margin-top: auto;
+    padding-top: 14px;
+}
+
+.profile-card {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(135deg, rgba(209,140,255,.08), rgba(104,221,255,.045));
+    border-radius: 14px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: .2s ease;
+    text-align: left;
+}
+
+.profile-card:hover {
+    border-color: rgba(209,140,255,.22);
+    background: linear-gradient(135deg, rgba(209,140,255,.12), rgba(104,221,255,.07));
+}
+
+.profile-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(209,140,255,.3);
+    background: linear-gradient(135deg, rgba(209,140,255,.24), rgba(104,221,255,.14));
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.profile-name {
+    color: #f4f6ff;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-role {
+    color: #737c96;
+    font-size: 10px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-edit-icon {
+    width: 18px;
+    height: 18px;
+    color: #737c96;
+    flex: 0 0 auto;
 }
 
 .nav-label {
@@ -2133,14 +2220,16 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
         </div>
     </div>
 
-    <div class="nav-section">
-
-        <div class="nav-label">WORKSPACE</div>
-
+    <div class="sidebar-dashboard">
         <button class="nav-item active" data-filter="all">
             <span class="nav-icon"><svg class="icon-line" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></span>
             Dashboard
         </button>
+    </div>
+
+    <div class="nav-section">
+
+        <div class="nav-label">WORKSPACE</div>
 
         <button class="nav-item" data-filter="pending">
             <span class="nav-icon"><svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
@@ -2183,6 +2272,17 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
             Rain Card Rejection
         </button>
 
+    </div>
+
+    <div class="sidebar-profile">
+        <button class="profile-card" id="profileCardBtn" type="button" title="Edit profile">
+            <span class="profile-avatar" id="sidebarProfileAvatar">B</span>
+            <span class="profile-info">
+                <span class="profile-name" id="sidebarProfileName">Buddy</span>
+                <span class="profile-role" id="sidebarProfileRole">Customer Support</span>
+            </span>
+            <svg class="profile-edit-icon icon-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>
+        </button>
     </div>
 
 </aside>
@@ -2508,6 +2608,38 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 </div>
 
 <!-- CHANGE NAME MODAL -->
+<div class="name-modal" id="profileModal">
+    <div class="name-modal-content" style="max-width:480px">
+        <button class="name-modal-close" id="closeProfileModalBtn" type="button">×</button>
+        <h3>Edit Profile</h3>
+        <p>Update how your profile appears in the sidebar.</p>
+
+        <div style="display:flex;align-items:center;gap:14px;margin:18px 0 20px">
+            <div class="profile-avatar" id="profileModalAvatar" style="width:58px;height:58px;min-width:58px;border-radius:16px;font-size:20px">B</div>
+            <div>
+                <label class="field-label" for="profilePhotoInput">Profile photo</label>
+                <input id="profilePhotoInput" type="file" accept="image/*" style="display:none">
+                <button class="secondary-btn" id="profilePhotoBtn" type="button">Upload Photo</button>
+                <button class="secondary-btn" id="profileRemovePhotoBtn" type="button" style="margin-left:6px">Use Initial</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="field-label" for="profileNameInput">Name</label>
+            <input class="form-input" id="profileNameInput" type="text" maxlength="60" placeholder="Your name">
+        </div>
+        <div class="form-group">
+            <label class="field-label" for="profileRoleInput">Role / Position</label>
+            <input class="form-input" id="profileRoleInput" type="text" maxlength="60" placeholder="Customer Support">
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:20px">
+            <button class="secondary-btn" id="cancelProfileBtn" type="button">Cancel</button>
+            <button class="primary-btn" id="saveProfileBtn" type="button">Save Profile</button>
+        </div>
+    </div>
+</div>
+
 <div class="name-modal" id="nameModal">
     <div class="name-modal-content">
         <div class="name-modal-header">
@@ -2656,6 +2788,20 @@ let reviewsStatsAnimated = false;
 
 // --- DOM ELEMENTS ---
 const displayName = document.getElementById('displayName');
+const profileCardBtn = document.getElementById('profileCardBtn');
+const profileModal = document.getElementById('profileModal');
+const profileNameInput = document.getElementById('profileNameInput');
+const profileRoleInput = document.getElementById('profileRoleInput');
+const profilePhotoInput = document.getElementById('profilePhotoInput');
+const profilePhotoBtn = document.getElementById('profilePhotoBtn');
+const profileRemovePhotoBtn = document.getElementById('profileRemovePhotoBtn');
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+const sidebarProfileAvatar = document.getElementById('sidebarProfileAvatar');
+const sidebarProfileName = document.getElementById('sidebarProfileName');
+const sidebarProfileRole = document.getElementById('sidebarProfileRole');
+const profileModalAvatar = document.getElementById('profileModalAvatar');
 const editNameBtn = document.getElementById('editNameBtn');
 const nameModal = document.getElementById('nameModal');
 const nameInput = document.getElementById('nameInput');
@@ -2710,8 +2856,9 @@ const toast = document.getElementById('toast');
 
 // --- APP INIT ---
 function init() {
-    const savedName = localStorage.getItem('escalation_user_name');
-    if (savedName) displayName.textContent = savedName;
+    const savedName = localStorage.getItem('escalation_user_name') || 'Buddy';
+    displayName.textContent = savedName;
+    loadProfile();
 
     setupNavigation();
     setupFileUpload();
@@ -2861,6 +3008,7 @@ function setupGearDropdown() {
                     if (data.userName) {
                         localStorage.setItem('escalation_user_name', data.userName);
                         displayName.textContent = data.userName;
+                        loadProfile();
                     }
 
                     saveCases();
@@ -3668,19 +3816,93 @@ reviewStatusSelect.addEventListener('change', () => {
     }
 });
 
-// --- NAME EDITING ---
-editNameBtn.addEventListener('click', () => {
-    nameInput.value = displayName.textContent;
-    nameModal.classList.add('show');
+// --- PROFILE ---
+function getInitials(name) {
+    const parts = (name || 'Buddy').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return 'B';
+    return (parts.length > 1 ? parts[0][0] + parts[parts.length - 1][0] : parts[0][0]).toUpperCase();
+}
+
+function setProfileAvatar(el, photo, name) {
+    if (!el) return;
+    if (photo) {
+        el.innerHTML = `<img src="${photo}" alt="Profile photo">`;
+    } else {
+        el.textContent = getInitials(name);
+    }
+}
+
+function loadProfile() {
+    const name = localStorage.getItem('escalation_user_name') || 'Buddy';
+    const role = localStorage.getItem('escalation_user_role') || 'Customer Support';
+    const photo = localStorage.getItem('escalation_user_photo') || '';
+    sidebarProfileName.textContent = name;
+    sidebarProfileRole.textContent = role;
+    profileNameInput.value = name;
+    profileRoleInput.value = role;
+    setProfileAvatar(sidebarProfileAvatar, photo, name);
+    setProfileAvatar(profileModalAvatar, photo, name);
+}
+
+function openProfileEditor() {
+    loadProfile();
+    profileModal.classList.add('show');
+}
+
+function closeProfileEditor() {
+    profileModal.classList.remove('show');
+}
+
+profileCardBtn.addEventListener('click', openProfileEditor);
+editNameBtn.addEventListener('click', openProfileEditor);
+closeProfileModalBtn.addEventListener('click', closeProfileEditor);
+cancelProfileBtn.addEventListener('click', closeProfileEditor);
+
+profilePhotoBtn.addEventListener('click', () => profilePhotoInput.click());
+profilePhotoInput.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        localStorage.setItem('escalation_user_photo', reader.result);
+        setProfileAvatar(profileModalAvatar, reader.result, profileNameInput.value);
+    };
+    reader.readAsDataURL(file);
 });
+
+profileRemovePhotoBtn.addEventListener('click', () => {
+    localStorage.removeItem('escalation_user_photo');
+    setProfileAvatar(profileModalAvatar, '', profileNameInput.value);
+    profilePhotoInput.value = '';
+});
+
+profileNameInput.addEventListener('input', () => {
+    setProfileAvatar(profileModalAvatar, localStorage.getItem('escalation_user_photo') || '', profileNameInput.value);
+});
+
+saveProfileBtn.addEventListener('click', () => {
+    const name = profileNameInput.value.trim() || 'Buddy';
+    const role = profileRoleInput.value.trim() || 'Customer Support';
+    displayName.textContent = name;
+    sidebarProfileName.textContent = name;
+    sidebarProfileRole.textContent = role;
+    localStorage.setItem('escalation_user_name', name);
+    localStorage.setItem('escalation_user_role', role);
+    setProfileAvatar(sidebarProfileAvatar, localStorage.getItem('escalation_user_photo') || '', name);
+    setProfileAvatar(profileModalAvatar, localStorage.getItem('escalation_user_photo') || '', name);
+    closeProfileEditor();
+    showToast('Profile updated!');
+});
+
+// Keep the older name modal controls available for compatibility with existing markup.
 closeNameModalBtn.addEventListener('click', () => nameModal.classList.remove('show'));
 cancelNameBtn.addEventListener('click', () => nameModal.classList.remove('show'));
-
 saveNameBtn.addEventListener('click', () => {
     const val = nameInput.value.trim();
     if (val) {
         displayName.textContent = val;
         localStorage.setItem('escalation_user_name', val);
+        loadProfile();
         nameModal.classList.remove('show');
         showToast('Name updated!');
     }
