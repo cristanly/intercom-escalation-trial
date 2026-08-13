@@ -2971,8 +2971,17 @@ const toast = document.getElementById('toast');
 
 // --- APP INIT ---
 function init() {
-    const savedName = localStorage.getItem('escalation_user_name') || 'Buddy';
-    displayName.textContent = savedName;
+    // Keep the topbar nickname and sidebar profile name as separate settings.
+    // Migrate the existing name once so current users keep their profile name.
+    const legacyName = localStorage.getItem('escalation_user_name') || 'Buddy';
+    if (!localStorage.getItem('escalation_profile_name')) {
+        localStorage.setItem('escalation_profile_name', legacyName);
+    }
+    if (!localStorage.getItem('escalation_nickname')) {
+        localStorage.setItem('escalation_nickname', legacyName);
+    }
+    const savedNickname = localStorage.getItem('escalation_nickname') || 'Buddy';
+    displayName.textContent = savedNickname;
     loadProfile();
 
     setupNavigation();
@@ -3040,7 +3049,7 @@ function setupGearDropdown() {
         const backupData = {
             cases: cases,
             reviews: reviews,
-            userName: localStorage.getItem('escalation_user_name') || 'Buddy',
+            userName: localStorage.getItem('escalation_nickname') || 'Buddy',
             exportedAt: new Date().toISOString()
         };
 
@@ -3121,9 +3130,8 @@ function setupGearDropdown() {
                     if (data.cases) cases = data.cases.map(ensureCaseHistory);
                     if (data.reviews) reviews = data.reviews;
                     if (data.userName) {
-                        localStorage.setItem('escalation_user_name', data.userName);
+                        localStorage.setItem('escalation_nickname', data.userName);
                         displayName.textContent = data.userName;
-                        loadProfile();
                     }
 
                     saveCases();
@@ -3950,7 +3958,7 @@ function setProfileAvatar(el, photo, name) {
 }
 
 function loadProfile() {
-    const name = localStorage.getItem('escalation_user_name') || 'Buddy';
+    const name = localStorage.getItem('escalation_profile_name') || 'Buddy';
     const role = localStorage.getItem('escalation_user_role') || 'Customer Support';
     const photo = localStorage.getItem('escalation_user_photo') || '';
     sidebarProfileName.textContent = name;
@@ -3971,7 +3979,10 @@ function closeProfileEditor() {
 }
 
 profileCardBtn.addEventListener('click', openProfileEditor);
-editNameBtn.addEventListener('click', openProfileEditor);
+editNameBtn.addEventListener('click', () => {
+    nameInput.value = localStorage.getItem('escalation_nickname') || 'Buddy';
+    nameModal.classList.add('show');
+});
 closeProfileModalBtn.addEventListener('click', closeProfileEditor);
 cancelProfileBtn.addEventListener('click', closeProfileEditor);
 
@@ -4000,10 +4011,9 @@ profileNameInput.addEventListener('input', () => {
 saveProfileBtn.addEventListener('click', () => {
     const name = profileNameInput.value.trim() || 'Buddy';
     const role = profileRoleInput.value.trim() || 'Customer Support';
-    displayName.textContent = name;
     sidebarProfileName.textContent = name;
     sidebarProfileRole.textContent = role;
-    localStorage.setItem('escalation_user_name', name);
+    localStorage.setItem('escalation_profile_name', name);
     localStorage.setItem('escalation_user_role', role);
     setProfileAvatar(sidebarProfileAvatar, localStorage.getItem('escalation_user_photo') || '', name);
     setProfileAvatar(profileModalAvatar, localStorage.getItem('escalation_user_photo') || '', name);
@@ -4018,8 +4028,7 @@ saveNameBtn.addEventListener('click', () => {
     const val = nameInput.value.trim();
     if (val) {
         displayName.textContent = val;
-        localStorage.setItem('escalation_user_name', val);
-        loadProfile();
+        localStorage.setItem('escalation_nickname', val);
         nameModal.classList.remove('show');
         showToast('Name updated!');
     }
