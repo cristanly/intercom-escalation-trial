@@ -749,6 +749,44 @@ button {
     transform: translateY(-1px);
 }
 .quick-action.resolve:hover { color: var(--teal); border-color: rgba(56,239,125,.55); }
+.quick-action.resolve.is-resolved {
+    color: var(--teal);
+    border-color: rgba(56,239,125,.55);
+    background: rgba(56,239,125,.12);
+    box-shadow: 0 0 12px rgba(56,239,125,.12);
+}
+.quick-action.resolve.is-resolved:hover {
+    color: var(--teal);
+    border-color: var(--teal);
+    background: rgba(56,239,125,.18);
+}
+.status-change-menu {
+    position: fixed;
+    z-index: 9999;
+    min-width: 170px;
+    padding: 6px;
+    border: 1px solid rgba(209,140,255,.28);
+    border-radius: 10px;
+    background: #111629;
+    box-shadow: 0 14px 35px rgba(0,0,0,.35);
+}
+.status-change-option {
+    width: 100%;
+    display: block;
+    border: 0;
+    border-radius: 7px;
+    padding: 8px 10px;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+.status-change-option:hover {
+    background: rgba(56,239,125,.12);
+    color: var(--teal);
+}
 .quick-action.danger:hover { color: var(--red); border-color: rgba(255,127,150,.55); }
 .quick-action .icon-line { width: 16px; height: 16px; }
 
@@ -3074,11 +3112,9 @@ function renderCaseCard(c) {
                     <button class="quick-action" onclick="focusTimeline('${c.id}')" title="View Timeline" aria-label="View Timeline">
                         <svg class="icon-line" viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 7h10l-2 3h8l-2 3h-6l-2 3H4"/></svg>
                     </button>
-                    ${c.status !== 'resolved' ? `
-                        <button class="quick-action resolve" onclick="quickResolveCase('${c.id}')" title="Mark Resolved" aria-label="Mark Resolved">
-                            <svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
-                        </button>
-                    ` : ''}
+                    <button class="quick-action resolve${c.status === 'resolved' ? ' is-resolved' : ''}" onclick="quickResolveCase('${c.id}', this)" title="${c.status === 'resolved' ? 'Resolved' : 'Mark Resolved'}" aria-label="${c.status === 'resolved' ? 'Resolved' : 'Mark Resolved'}">
+                        <svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+                    </button>
                     <button class="quick-action danger" onclick="deleteCase('${c.id}')" title="Delete Case" aria-label="Delete Case">
                         <svg class="icon-line" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                     </button>
@@ -3338,9 +3374,17 @@ window.focusTimeline = function(id) {
     }
 };
 
-window.quickResolveCase = function(id) {
+window.quickResolveCase = function(id, button) {
     const c = cases.find(item => item.id === id);
-    if (!c || c.status === 'resolved' || c.status === 'deleted') return;
+    if (!c || c.status === 'deleted') return;
+
+    // Clicking an already-resolved check button opens the status menu instead
+    // of doing nothing, so an accidental resolve can be undone without
+    // changing the button's position in List View.
+    if (c.status === 'resolved') {
+        showStatusChangeMenu(id, button);
+        return;
+    }
 
     const previousStatus = c.status;
     c.status = 'resolved';
@@ -3351,6 +3395,71 @@ window.quickResolveCase = function(id) {
     celebrateResolution();
     showToast('Case marked as resolved!');
 };
+
+function closeStatusChangeMenu() {
+    const menu = document.getElementById('statusChangeMenu');
+    if (menu) menu.remove();
+}
+
+function showStatusChangeMenu(id, button) {
+    closeStatusChangeMenu();
+
+    const menu = document.createElement('div');
+    menu.id = 'statusChangeMenu';
+    menu.className = 'status-change-menu';
+    menu.setAttribute('role', 'menu');
+
+    const statuses = [
+        ['ready', 'Ready to Escalate'],
+        ['waiting', 'Waiting for User'],
+        ['pending', 'Pending'],
+        ['escalated', 'Escalated'],
+        ['rejected', 'Rejected']
+    ];
+
+    menu.innerHTML = statuses.map(([value, label]) => `
+        <button type="button" class="status-change-option" role="menuitem" onclick="changeCaseStatus('${id}', '${value}')">${label}</button>
+    `).join('');
+
+    document.body.appendChild(menu);
+
+    const rect = button ? button.getBoundingClientRect() : null;
+    if (rect) {
+        const menuWidth = menu.offsetWidth;
+        const menuHeight = menu.offsetHeight;
+        let left = rect.right - menuWidth;
+        let top = rect.bottom + 6;
+
+        if (left < 8) left = 8;
+        if (left + menuWidth > window.innerWidth - 8) left = window.innerWidth - menuWidth - 8;
+        if (top + menuHeight > window.innerHeight - 8) top = rect.top - menuHeight - 6;
+        if (top < 8) top = 8;
+
+        menu.style.left = `${left}px`;
+        menu.style.top = `${top}px`;
+    }
+}
+
+window.changeCaseStatus = function(id, status) {
+    const c = cases.find(item => item.id === id);
+    if (!c || c.status === 'deleted' || status === 'resolved') return;
+
+    c.activity = Array.isArray(c.activity) ? c.activity : [];
+    c.activity.push({ type: 'status', status, at: Date.now() });
+    c.status = status;
+    closeStatusChangeMenu();
+    saveCases();
+    renderApp();
+    showToast(`Case status changed to ${formatActivityStatus(status)}.`);
+};
+
+document.addEventListener('click', (event) => {
+    const menu = document.getElementById('statusChangeMenu');
+    if (!menu) return;
+    if (menu.contains(event.target)) return;
+    if (event.target.closest('.quick-action.resolve')) return;
+    closeStatusChangeMenu();
+});
 
 function celebrateResolution() {
     const pieces = 26;
