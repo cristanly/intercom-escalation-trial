@@ -148,7 +148,13 @@ button {
     border-radius: 15px;
     background: rgba(209,140,255,.12);
     box-shadow: 0 0 25px var(--purple-glow);
-    font-size: 22px;
+    color: #fff;
+}
+
+.brand-icon svg {
+    width: 36px;
+    height: 36px;
+    display: block;
 }
 
 .brand h1 {
@@ -2324,7 +2330,16 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 <aside class="sidebar">
 
     <div class="brand">
-        <div class="brand-icon">!</div>
+        <div class="brand-icon" aria-label="EarnOS">
+            <svg viewBox="0 0 1024 1024" aria-hidden="true" focusable="false">
+                <g fill="currentColor">
+                    <path d="M311 748L354 791L482 664L484 820L543 821L544 665L547 664L674 791L717 750L545 576L483 576Z"/>
+                    <path d="M748 311L576 483L576 545L750 717L791 674L664 547L665 544L821 543L820 484L664 483L791 354Z"/>
+                    <path d="M277 311L237 351L237 354L364 481L362 484L207 484L208 544L364 545L237 674L279 717L452 544L452 483L280 311Z"/>
+                    <path d="M311 277L311 280L483 452L545 452L717 280L674 237L546 364L544 208L485 207L484 362L481 364L354 237L351 237Z"/>
+                </g>
+            </svg>
+        </div>
         <div>
             <h1>ESCALATION</h1>
             <span>TRACKER</span>
