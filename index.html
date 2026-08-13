@@ -4591,3 +4591,61 @@ setupRainCardTool();
     flex-shrink: 0 !important;
 }
 </style>
+
+<style>
+/* ===== FINAL META + DESCRIPTION BALANCE ===== */
+
+/* Card view: give Category enough room while keeping Description large. */
+.cases-grid:not(.list-mode) .case-meta-wrap {
+    grid-template-columns: minmax(0, 1.15fr) minmax(110px, .8fr) minmax(150px, 1.25fr) !important;
+    gap: 14px !important;
+}
+
+.cases-grid:not(.list-mode) .case-meta-item,
+.cases-grid:not(.list-mode) .mission-tag,
+.cases-grid:not(.list-mode) .provider-tag,
+.cases-grid:not(.list-mode) .issue-tag {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.cases-grid:not(.list-mode) .case-notes {
+    -webkit-line-clamp: 4 !important;
+    max-height: calc(1.65em * 4) !important;
+}
+
+/* List view: slightly reduce Description and give Meta/Category more room. */
+.cases-grid.list-mode .case-card {
+    grid-template-columns: 112px minmax(190px, 1.05fr) minmax(350px, 1.65fr) minmax(240px, 1.35fr) max-content !important;
+}
+
+.cases-grid.list-mode .case-meta-wrap {
+    grid-column: 3 !important;
+    grid-template-columns: minmax(125px, 1.25fr) minmax(85px, .75fr) minmax(140px, 1.25fr) !important;
+    gap: 10px !important;
+    overflow: visible !important;
+}
+
+.cases-grid.list-mode .case-meta-item,
+.cases-grid.list-mode .mission-tag,
+.cases-grid.list-mode .provider-tag,
+.cases-grid.list-mode .issue-tag {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.cases-grid.list-mode .case-meta-item .issue-tag {
+    min-width: 0 !important;
+}
+
+/* Description stays visible, but long text gets a clean ellipsis. */
+.cases-grid.list-mode .case-description-section > .case-notes-wrap .case-notes {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+</style>
