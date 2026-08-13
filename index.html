@@ -2161,6 +2161,9 @@ button {
 .form-grid>.form-group:nth-child(7){grid-column:2}
 .form-grid>.form-group:nth-child(8),.form-grid>.form-group:nth-child(9),.form-grid>.form-group:nth-child(10){grid-column:1/-1}
 #customProviderGroup{grid-column:1!important}
+/* Keep Issue Category and Status side-by-side */
+.form-grid > .form-group:has(#issueCategory){grid-column:1 !important}
+.form-grid > .form-group:has(#caseStatus){grid-column:2 !important}
 .modal-section-title{margin:27px 0 12px;padding:0;color:#c78cff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .form-grid+.modal-section-title{margin-top:26px}
 .checklist-editor{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -2278,13 +2281,15 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 /* ===== FINAL PROFILE EDITOR UI ===== */
 #profileModal .name-modal-content { position:relative; }
 #profileModal .name-modal-close {
+    position:absolute !important;
+    top:18px !important; right:18px !important;
+    z-index:5 !important;
     width:32px !important; height:32px !important; min-width:32px !important;
     padding:0 !important; border-radius:9px !important;
     display:grid !important; place-items:center !important;
     background:rgba(255,255,255,.035) !important;
     border:1px solid rgba(255,255,255,.08) !important;
     color:#9da6bd !important;
-    top:18px !important; right:18px !important;
     transition:all .18s ease !important;
 }
 #profileModal .name-modal-close svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
@@ -2628,6 +2633,11 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
                 <div class="form-group">
                     <label>ROW #</label>
                     <input type="text" id="rowNum" placeholder="e.g. 142">
+                </div>
+
+                <div class="form-group">
+                    <label>MISSION NAME</label>
+                    <input type="text" id="missionName" placeholder="Enter mission name...">
                 </div>
 
                 <div class="form-group">
@@ -3518,6 +3528,7 @@ caseForm.addEventListener('submit', (e) => {
         userEmail: document.getElementById('userEmail').value,
         userId: document.getElementById('userId').value,
         rowNum: document.getElementById('rowNum').value,
+        missionName: document.getElementById('missionName').value.trim(),
         provider: selectedProvider,
         issueCategory: document.getElementById('issueCategory').value,
         status: nextStatus,
@@ -3566,6 +3577,7 @@ window.editCase = function(id) {
     document.getElementById('userEmail').value = c.userEmail || '';
     document.getElementById('userId').value = c.userId || '';
     document.getElementById('rowNum').value = c.rowNum || '';
+    document.getElementById('missionName').value = c.missionName || '';
     
     const standardProviders = ['AyeT', 'RevU', 'Winklelab', 'Prodege', 'WDigital'];
     if (standardProviders.includes(c.provider)) {
