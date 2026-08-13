@@ -2207,6 +2207,11 @@ button {
 .rain-card-field{display:flex;flex-direction:column;gap:8px}.rain-card-field label,.rain-user-entry label{color:var(--muted);font-size:11px;font-weight:700}.rain-card-field input,.rain-user-entry input,.rain-card-view textarea{width:100%;background:#0a0d18;border:1px solid var(--border);border-radius:11px;color:var(--text);outline:none;padding:12px 13px;font-size:13px}.rain-card-field input:focus,.rain-user-entry input:focus,.rain-card-view textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(209,140,255,.08)}
 .rain-user-entry{position:relative;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:16px;padding:18px;margin-top:16px}.rain-user-entry-title{font-size:12px;font-weight:800;color:#e9edf7;margin-bottom:15px}.rain-user-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.rain-remove-user{position:absolute;right:14px;top:13px;border:1px solid rgba(255,127,150,.28);background:rgba(255,127,150,.06);color:var(--red);border-radius:9px;padding:7px 10px;font-size:11px;font-weight:700}.rain-card-add-user{margin-top:16px;border:1px dashed rgba(209,140,255,.35);background:rgba(209,140,255,.06);color:var(--purple);border-radius:11px;padding:10px 14px;font-size:12px;font-weight:800}
 .rain-card-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.rain-card-buttons button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border-radius:11px;padding:10px 14px;font-size:12px;line-height:1;font-weight:800;letter-spacing:.1px;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease}.rain-card-buttons button svg{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.rain-card-secondary{border:1px solid rgba(104,221,255,.34);background:rgba(104,221,255,.07);color:var(--cyan);box-shadow:0 5px 18px rgba(0,0,0,.12)}.rain-card-secondary:hover{background:rgba(104,221,255,.13);border-color:rgba(104,221,255,.55);box-shadow:0 7px 22px rgba(0,0,0,.18)}.rain-card-danger{border:1px solid rgba(255,127,150,.30);background:rgba(255,127,150,.055);color:var(--red);box-shadow:0 5px 18px rgba(0,0,0,.12)}.rain-card-danger:hover{background:rgba(255,127,150,.11);border-color:rgba(255,127,150,.5);box-shadow:0 7px 22px rgba(0,0,0,.18)}.rain-card-buttons button:hover{transform:translateY(-1px)}.rain-card-buttons button:active{transform:translateY(0)}.rain-card-view textarea{min-height:270px;resize:vertical;line-height:1.75;background:#090c16}
+
+/* Rain Card activity log */
+.rain-card-tool-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}.rain-card-main-column{min-width:0}.rain-card-log-panel{background:linear-gradient(145deg,rgba(22,27,45,.96),rgba(12,15,27,.96));border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:0 12px 35px rgba(0,0,0,.16);position:sticky;top:20px;max-height:calc(100vh - 150px);overflow:auto}.rain-card-log-panel .rain-card-section-title{margin-bottom:5px}.rain-card-log-subtitle{margin:0 0 15px;color:var(--muted);font-size:11px;line-height:1.5}.rain-card-log-list{display:flex;flex-direction:column;gap:10px}.rain-card-log-empty{padding:24px 12px;text-align:center;color:var(--muted);font-size:11px;border:1px dashed rgba(255,255,255,.08);border-radius:12px}.rain-log-entry{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);border-radius:13px;padding:12px}.rain-log-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.rain-log-time{font-size:10px;color:var(--muted)}.rain-log-users{font-size:11px;color:#e9edf7;line-height:1.5;margin-bottom:10px;word-break:break-word}.rain-log-controls{display:grid;gap:8px}.rain-log-controls select,.rain-log-controls input{width:100%;background:#0a0d18;border:1px solid var(--border);border-radius:9px;color:var(--text);outline:none;padding:9px 10px;font-size:11px}.rain-log-controls select:focus,.rain-log-controls input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(209,140,255,.08)}.rain-log-status{display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border-radius:999px;font-size:9px;font-weight:800;letter-spacing:.4px}.rain-log-status.approved{color:#72f0c1;background:rgba(114,240,193,.08);border:1px solid rgba(114,240,193,.18)}.rain-log-status.rejected{color:var(--red);background:rgba(255,127,150,.06);border:1px solid rgba(255,127,150,.18)}.rain-log-reason{display:none}.rain-log-reason.visible{display:block}.rain-log-delete{margin-top:8px;border:0;background:transparent;color:var(--muted);font-size:10px;cursor:pointer;padding:3px}.rain-log-delete:hover{color:var(--red)}
+@media(max-width:1050px){.rain-card-tool-grid{grid-template-columns:1fr}.rain-card-log-panel{position:static;max-height:none}}
+
 @media(max-width:850px){.rain-user-grid{grid-template-columns:1fr}}@media(max-width:600px){.rain-card-panel{padding:18px}.rain-card-header h2{font-size:25px}.rain-card-buttons{flex-direction:column}.rain-card-buttons button{width:100%}}
 
 
@@ -2614,12 +2619,22 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 
 <section class="rain-card-view" id="rainCardView">
 <div class="rain-card-header"><div><div class="rain-card-kicker">CARD OPERATIONS</div><h2>Rain Card Rejection</h2><p>Generate your Slack rejection format in seconds.</p></div></div>
-<div class="rain-card-panel"><div class="rain-card-section-title"><span class="rain-card-section-icon">✦</span> User Details</div>
-<div class="rain-card-field"><label for="rcDate">Date</label><input type="date" id="rcDate"></div>
-<div id="rcUsersContainer"></div>
-<button class="rain-card-add-user" id="rcAddUserBtn" type="button">＋ Add Another User</button>
-<div class="rain-card-buttons"><button class="rain-card-secondary" id="rcCopyBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h1"></path></svg><span>Copy Format</span></button><button class="rain-card-danger" id="rcClearBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M7 7l1 13h8l1-13"></path><path d="M10 11v5M14 11v5"></path></svg><span>Delete All</span></button></div></div>
-<div class="rain-card-panel"><div class="rain-card-section-title"><span class="rain-card-section-icon">▣</span> Slack Preview</div><textarea id="rcOutput" readonly></textarea></div>
+<div class="rain-card-tool-grid">
+  <div class="rain-card-main-column">
+    <div class="rain-card-panel"><div class="rain-card-section-title"><span class="rain-card-section-icon">✦</span> User Details</div>
+    <div class="rain-card-field"><label for="rcDate">Date</label><input type="date" id="rcDate"></div>
+    <div id="rcUsersContainer"></div>
+    <button class="rain-card-add-user" id="rcAddUserBtn" type="button">＋ Add Another User</button>
+    <div class="rain-card-buttons"><button class="rain-card-secondary" id="rcCopyBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h1"></path></svg><span>Copy Format</span></button><button class="rain-card-danger" id="rcClearBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M7 7l1 13h8l1-13"></path><path d="M10 11v5M14 11v5"></path></svg><span>Delete All</span></button></div></div>
+    <div class="rain-card-panel"><div class="rain-card-section-title"><span class="rain-card-section-icon">▣</span> Slack Preview</div><textarea id="rcOutput" readonly></textarea></div>
+  </div>
+  <aside class="rain-card-log-panel">
+    <div class="rain-card-section-title"><span class="rain-card-section-icon">◷</span> Rejection Log</div>
+    <p class="rain-card-log-subtitle">Automatically records each copied format.</p>
+    <div id="rcLogList" class="rain-card-log-list"></div>
+    <div id="rcLogEmpty" class="rain-card-log-empty">No Rain Card activity yet.</div>
+  </aside>
+</div>
 </section>
 
 </main>
@@ -4066,6 +4081,10 @@ const rainCardNavBtn = document.getElementById('rainCardNavBtn');
 const rcDate = document.getElementById('rcDate');
 const rcUsersContainer = document.getElementById('rcUsersContainer');
 const rcOutput = document.getElementById('rcOutput');
+const rcLogList = document.getElementById('rcLogList');
+const rcLogEmpty = document.getElementById('rcLogEmpty');
+const RC_LOG_KEY = 'rainCardUsageLog_v1';
+let rcUsageLog = JSON.parse(localStorage.getItem(RC_LOG_KEY) || '[]');
 
 function rcToday() {
     return new Date().toISOString().split('T')[0];
@@ -4131,10 +4150,84 @@ function rcGenerateFormat() {
     rcOutput.value = `@Edwin Guerrero Rain Card Rejection - ${date}\n\n${details.join('\n\n')}`;
 }
 
+function rcSaveLog(){ localStorage.setItem(RC_LOG_KEY, JSON.stringify(rcUsageLog)); }
+
+function rcCurrentUsersSummary(){
+    const users=[];
+    rcUsersContainer.querySelectorAll('.rain-user-entry').forEach(user=>{
+        const id=user.querySelector('.rc-user-id')?.value.trim();
+        const email=user.querySelector('.rc-email')?.value.trim();
+        const rain=user.querySelector('.rc-rain-id')?.value.trim();
+        if(id || email || rain) users.push([id || 'No ID', email || 'No email', rain || 'No Rain ID'].join(' • '));
+    });
+    return users.length ? users : ['No user details'];
+}
+
+function rcRenderLogs(){
+    if(!rcLogList || !rcLogEmpty) return;
+    rcLogList.innerHTML='';
+    rcLogEmpty.style.display=rcUsageLog.length ? 'none' : 'block';
+    [...rcUsageLog].reverse().forEach(log=>{
+        const entry=document.createElement('div');
+        entry.className='rain-log-entry';
+        const time=new Date(log.createdAt);
+        const dateText=time.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+        const timeText=time.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+        entry.innerHTML=`
+            <div class="rain-log-top"><span class="rain-log-time">${escapeHtml(dateText)} · ${escapeHtml(timeText)}</span><span class="rain-log-status ${log.status==='Rejected'?'rejected':'approved'}">${escapeHtml(log.status)}</span></div>
+            <div class="rain-log-users">${log.users.map(u=>escapeHtml(u)).join('<br>')}</div>
+            <div class="rain-log-controls">
+                <select class="rc-log-status" data-id="${log.id}">
+                    <option value="Approved" ${log.status==='Approved'?'selected':''}>Approved</option>
+                    <option value="Rejected" ${log.status==='Rejected'?'selected':''}>Rejected</option>
+                </select>
+                <div class="rain-log-reason ${log.status==='Rejected'?'visible':''}"><input class="rc-log-reason-input" data-id="${log.id}" value="${escapeHtml(log.reason || '')}" placeholder="Reason of rejection (optional)"></div>
+            </div>
+            <button type="button" class="rain-log-delete" data-delete-id="${log.id}">Remove log</button>`;
+        rcLogList.appendChild(entry);
+    });
+    rcLogList.querySelectorAll('.rc-log-status').forEach(select=>{
+        select.addEventListener('change',()=>{
+            const log=rcUsageLog.find(x=>String(x.id)===String(select.dataset.id));
+            if(!log) return;
+            log.status=select.value;
+            if(log.status==='Approved') log.reason='';
+            rcSaveLog(); rcRenderLogs();
+        });
+    });
+    rcLogList.querySelectorAll('.rc-log-reason-input').forEach(input=>{
+        input.addEventListener('input',()=>{
+            const log=rcUsageLog.find(x=>String(x.id)===String(input.dataset.id));
+            if(log){ log.reason=input.value; rcSaveLog(); }
+        });
+    });
+    rcLogList.querySelectorAll('[data-delete-id]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            rcUsageLog=rcUsageLog.filter(x=>String(x.id)!==String(btn.dataset.deleteId));
+            rcSaveLog(); rcRenderLogs();
+        });
+    });
+}
+
+function rcAutoLogUsage(){
+    rcUsageLog.push({
+        id: Date.now() + Math.random().toString(16).slice(2),
+        createdAt: new Date().toISOString(),
+        date: rcDate.value || rcToday(),
+        users: rcCurrentUsersSummary(),
+        status: 'Rejected',
+        reason: ''
+    });
+    if(rcUsageLog.length>100) rcUsageLog=rcUsageLog.slice(-100);
+    rcSaveLog();
+    rcRenderLogs();
+}
+
 async function rcCopyFormat() {
     rcGenerateFormat();
     try {
         await navigator.clipboard.writeText(rcOutput.value);
+        rcAutoLogUsage();
         const button = document.getElementById('rcCopyBtn');
         const original = button.textContent;
         button.textContent = 'Copied!';
@@ -4159,6 +4252,7 @@ function setupRainCardTool() {
     rcDate.addEventListener('input', rcGenerateFormat);
     rcDate.addEventListener('change', rcGenerateFormat);
     rcAddUser();
+    rcRenderLogs();
 }
 
 function openRainCardTool() {
