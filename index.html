@@ -724,7 +724,7 @@ button {
     white-space: nowrap;
 }
 
-/* PROOF ATTACHMENTS PREVIEW IN CARD */
+/* Legacy proof styles retained for stored data compatibility */
 .evidence-section {
     margin-top: 14px;
     border-top: 1px solid var(--border);
@@ -1545,7 +1545,7 @@ button {
 .reviews-top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:28px}
 .reviews-title-wrap h2{font-size:30px;margin:0 0 7px;font-family:"Plus Jakarta Sans",sans-serif}.reviews-title-wrap p{margin:0;color:var(--muted)}
 .review-add-btn{display:flex;align-items:center;gap:9px;color:#fff;border-radius:13px;padding:12px 17px;font-weight:800;cursor:pointer}
-.review-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-bottom:22px}.review-stat{padding:20px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));box-shadow:0 12px 30px rgba(0,0,0,.12)}.review-stat small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px}.review-stat strong{font-size:27px;font-family:"Plus Jakarta Sans",sans-serif}.review-stat .stat-icon{float:right;color:#9cecff}
+.review-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-bottom:22px}.review-stat{padding:20px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));box-shadow:0 12px 30px rgba(0,0,0,.12)}.review-stat small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px}.review-stat strong{font-size:27px;font-family:"Plus Jakarta Sans",sans-serif}.review-stat .stat-icon{float:right;color:#9cecff}
 .review-controls{display:flex;gap:12px;margin-bottom:20px}.review-search{flex:1;min-width:0}.review-empty{padding:55px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:18px}.review-table-wrap{border:1px solid var(--border);border-radius:18px;overflow:auto;background:rgba(255,255,255,.018)}.review-table{width:100%;border-collapse:collapse;min-width:760px}.review-table th,.review-table td{padding:15px 16px;text-align:left;border-bottom:1px solid var(--border)}.review-table th{font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}.review-link{display:inline-flex;align-items:center;gap:7px;color:#9cecff;text-decoration:none;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.review-status{display:inline-flex;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800}.review-status.pending{background:rgba(255,205,107,.13);color:#ffd56a}.review-status.successful{background:rgba(109,240,174,.12);color:#73eab0}.review-status.not-reviewed{background:rgba(255,133,158,.12);color:#ff9ab0}.review-bonus{font-weight:800;color:#73eab0}.review-actions{display:flex;gap:8px}.review-action{width:35px;height:35px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.035);color:var(--muted);display:grid;place-items:center;cursor:pointer}.review-action:hover{color:#fff;border-color:#9cecff}.review-action.delete:hover{border-color:#ff7893;color:#ff9ab0}.review-action.paid{color:#ffd56a}.review-action.paid:hover{color:#fff;border-color:#ffd56a}.review-action.paid.is-paid{color:#73eab0;border-color:rgba(109,240,174,.35);background:rgba(109,240,174,.08)}.review-action.paid.is-paid:hover{color:#9cf5c8;border-color:#73eab0}.review-action.paid:disabled{opacity:.3;cursor:not-allowed;transform:none}.review-received{font-weight:800;color:#9cecff}
 .review-modal{position:fixed;inset:0;z-index:450;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(2,3,8,.76);backdrop-filter:blur(9px)}.review-modal.show{display:flex}.review-modal-card{width:min(560px,100%);padding:25px;border-radius:22px;background:#101421;border:1px solid rgba(104,221,255,.24);box-shadow:0 25px 90px rgba(0,0,0,.55)}.review-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.review-modal-head h3{margin:0;font-size:23px}.review-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.review-form-grid .full{grid-column:1/-1}.review-form-group{display:flex;flex-direction:column;gap:8px}.review-form-group label{font-size:10px;letter-spacing:.8px;color:var(--muted);font-weight:800}.review-form-group input,.review-form-group select{height:46px;padding:0 13px;border-radius:11px;border:1px solid var(--border);background:#0a0d18;color:#fff;outline:none}.review-form-group input:focus,.review-form-group select:focus{border-color:#9cecff}.review-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
 @media(max-width:1100px){.review-stats{grid-template-columns:repeat(3,1fr)}}
@@ -2749,14 +2749,19 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
                 <strong id="revStatSuccessful">0</strong>
             </div>
             <div class="review-stat">
+                <span class="stat-icon"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg></span>
+                <small>Received Bonus</small>
+                <strong id="revStatReceived">$0.00</strong>
+            </div>
+            <div class="review-stat">
                 <span class="stat-icon"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 12h.01M17 12h.01"/><circle cx="12" cy="12" r="2.5"/></svg></span>
                 <small>Total Bonus</small>
                 <strong id="revStatBonus">$0.00</strong>
             </div>
             <div class="review-stat">
-                <span class="stat-icon"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg></span>
-                <small>Received Bonus</small>
-                <strong id="revStatReceived">$0.00</strong>
+                <span class="stat-icon"><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></span>
+                <small>Unpaid Bonus</small>
+                <strong id="revStatUnpaid">$0.00</strong>
             </div>
         </div>
 
@@ -2836,17 +2841,8 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
                     <input type="email" id="userEmail" required placeholder="user@example.com">
                 </div>
                 <div class="form-group">
-                    <label>USER ID</label>
-                    <input type="text" id="userId" required placeholder="3560298">
-                </div>
-                <div class="form-group">
                     <label>ROW #</label>
                     <input type="text" id="rowNum" placeholder="e.g. 142">
-                </div>
-
-                <div class="form-group">
-                    <label>MISSION NAME</label>
-                    <input type="text" id="missionName" placeholder="Enter mission name...">
                 </div>
 
                 <div class="form-group">
@@ -2894,31 +2890,6 @@ input[type="date"]:hover{background-image:url("data:image/svg+xml,%3Csvg xmlns='
                     <label>DESCRIPTION / NOTES</label>
                     <textarea id="caseNotes" placeholder="Additional details about this case..."></textarea>
                 </div>
-
-                <!-- EVIDENCE & PROOF UPLOAD -->
-                <div class="form-group full">
-                    <label>PROOF ATTACHMENTS</label>
-                    <div class="upload-area" id="uploadArea">
-                        <input type="file" id="fileInput" multiple accept="image/*">
-                        <label for="fileInput" class="upload-label">
-                            <span><svg class="icon-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="3.5"/></svg> Click or drag images here to <strong>upload proof</strong></span>
-                        </label>
-                    </div>
-                    <div class="upload-preview-grid" id="uploadPreviewGrid"></div>
-                </div>
-            </div>
-
-            <div class="modal-section-title">Checklist Progress</div>
-            <div class="checklist-editor">
-                <label class="check-row">
-                    <input type="checkbox" id="chkKyc"> KYC Verified User
-                </label>
-                <label class="check-row">
-                    <input type="checkbox" id="chkDoc"> All screenshots received
-                </label>
-                <label class="check-row">
-                    <input type="checkbox" id="chkProof"> Proofs are legit
-                </label>
             </div>
 
             <div class="modal-actions">
@@ -3104,7 +3075,6 @@ cases = cases.map(ensureCaseHistory);
 
 let currentFilter = 'all'; 
 let currentMode = 'cases'; 
-let currentUploadedProofs = [];
 let currentView = localStorage.getItem('escalation_view_preference') || 'card';
 
 // Stat animations run only when the dashboard/reviews workspace is first visited
@@ -3152,10 +3122,6 @@ const caseProviderSelect = document.getElementById('caseProvider');
 const customProviderGroup = document.getElementById('customProviderGroup');
 const customProviderInput = document.getElementById('customProviderInput');
 
-const fileInput = document.getElementById('fileInput');
-const uploadArea = document.getElementById('uploadArea');
-const uploadPreviewGrid = document.getElementById('uploadPreviewGrid');
-
 const reviewsNavBtn = document.getElementById('reviewsNavBtn');
 const reviewsView = document.getElementById('reviewsView');
 const reviewModal = document.getElementById('reviewModal');
@@ -3196,7 +3162,6 @@ function init() {
     loadProfile();
 
     setupNavigation();
-    setupFileUpload();
     setupProviderToggle();
     setupGearDropdown();
     setupViewToggles();
@@ -3295,11 +3260,10 @@ function setupGearDropdown() {
             filename = `reviews_report_${new Date().toISOString().split('T')[0]}.csv`;
         } else {
             // Setup columns for main escalation cases data grid
-            const headers = ["Date", "User Email", "User Ticket ID", "Row Number", "Provider", "Issue Category", "Status", "Notes"];
+            const headers = ["Date", "User Email", "Row Number", "Provider", "Issue Category", "Status", "Notes"];
             const rows = cases.map(c => [
                 c.caseDate || '',
                 `"${(c.userEmail || '').replace(/"/g, '""')}"`,
-                `"${(c.userId || '').replace(/"/g, '""')}"`,
                 `"${(c.rowNum || '').replace(/"/g, '""')}"`,
                 `"${(c.provider || '').replace(/"/g, '""')}"`,
                 `"${(c.issueCategory || '').replace(/"/g, '""')}"`,
@@ -3408,61 +3372,6 @@ function setupNavigation() {
     });
 }
 
-// --- FILE UPLOAD HANDLING ---
-function setupFileUpload() {
-    fileInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-    });
-
-    uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('dragging');
-    });
-
-    uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('dragging');
-    });
-
-    uploadArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('dragging');
-        if (e.dataTransfer.files) {
-            handleFiles(e.dataTransfer.files);
-        }
-    });
-}
-
-function handleFiles(files) {
-    Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                currentUploadedProofs.push(e.target.result);
-                renderUploadPreviews();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-}
-
-function renderUploadPreviews() {
-    uploadPreviewGrid.innerHTML = currentUploadedProofs.map((src, index) => `
-        <div class="upload-preview">
-            <img src="${src}" alt="Proof ${index + 1}">
-            <button type="button" class="remove-preview" onclick="removeProof(${index})" aria-label="Remove proof"><svg class="icon-line" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
-        </div>
-    `).join('');
-
-    if (currentUploadedProofs.length > 0) {
-        document.getElementById('chkProof').checked = true;
-    }
-}
-
-window.removeProof = function(index) {
-    currentUploadedProofs.splice(index, 1);
-    renderUploadPreviews();
-};
-
 // --- RENDERING MAIN CASES ---
 function renderApp() {
     if (currentMode === 'reviews') return;
@@ -3484,7 +3393,6 @@ function renderApp() {
         const q = searchInput.value.toLowerCase().trim();
         if (q) {
             return (c.userEmail && c.userEmail.toLowerCase().includes(q)) ||
-                   (c.userId && c.userId.toLowerCase().includes(q)) ||
                    (c.rowNum && c.rowNum.toLowerCase().includes(q)) ||
                    (c.provider && c.provider.toLowerCase().includes(q)) ||
                    (c.issueCategory && c.issueCategory.toLowerCase().includes(q));
@@ -3570,7 +3478,6 @@ function renderTimeline(c) {
 
 function renderCaseCard(c) {
     const isDeleted = c.status === 'deleted';
-    const proofsList = c.proofs || [];
 
     return `
         <div class="case-card status-${c.status}" data-case-id="${escapeHtml(c.id)}">
@@ -3605,15 +3512,11 @@ function renderCaseCard(c) {
             <div class="user-info">
                 <div>
                     <h4>${escapeHtml(c.userEmail || 'No Email')}</h4>
-                    <p>ID: ${escapeHtml(c.userId || '')}${c.rowNum ? ` | Row: #${escapeHtml(c.rowNum)}` : ''}</p>
+                    ${c.rowNum ? `<p>Row: #${escapeHtml(c.rowNum)}</p>` : ''}
                 </div>
             </div>
             <div class="case-description-section">
                 <div class="case-meta-wrap">
-                    <div class="case-meta-item">
-                        <span class="info-label">Mission</span>
-                        <span class="mission-tag">${escapeHtml(c.missionName || 'N/A')}</span>
-                    </div>
                     <div class="case-meta-item">
                         <span class="info-label">Provider</span>
                         <span class="provider-tag">${escapeHtml(c.provider || 'N/A')}</span>
@@ -3629,19 +3532,6 @@ function renderCaseCard(c) {
                     ${(c.notes || '').length > 150 ? `<button class="notes-more" type="button" onclick="toggleCaseNotes('${c.id}', this)">See more</button>` : ''}
                 </div>
             </div>
-
-            ${proofsList.length > 0 ? `
-                <div class="evidence-section">
-                    <div class="evidence-title">Proof Attachments (${proofsList.length})</div>
-                    <div class="proof-preview">
-                        ${proofsList.map(src => `
-                            <a href="${src}" target="_blank" rel="noopener" class="proof-thumb">
-                                <img src="${src}" alt="Proof Attachment">
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>
-            ` : ''}
 
             ${renderTimeline(c)}
 
@@ -3728,8 +3618,6 @@ addCaseBtn.addEventListener('click', () => {
     caseForm.reset();
     document.getElementById('caseDate').value = todayStr;
     customProviderGroup.style.display = 'none';
-    currentUploadedProofs = [];
-    renderUploadPreviews();
     document.getElementById('modalTitle').textContent = 'Add New Escalation';
     caseModal.classList.add('show');
 });
@@ -3753,19 +3641,11 @@ caseForm.addEventListener('submit', (e) => {
         id: id || now.toString(),
         caseDate: document.getElementById('caseDate').value || todayStr,
         userEmail: document.getElementById('userEmail').value,
-        userId: document.getElementById('userId').value,
         rowNum: document.getElementById('rowNum').value,
-        missionName: document.getElementById('missionName').value.trim(),
         provider: selectedProvider,
         issueCategory: document.getElementById('issueCategory').value,
         status: nextStatus,
         notes: document.getElementById('caseNotes').value,
-        checks: {
-            kyc: document.getElementById('chkKyc').checked,
-            doc: document.getElementById('chkDoc').checked,
-            proof: document.getElementById('chkProof').checked
-        },
-        proofs: [...currentUploadedProofs],
         createdAt: existing?.createdAt || now,
         activity: existing?.activity ? [...existing.activity] : [{ type: 'created', status: nextStatus, at: now }]
     };
@@ -3802,9 +3682,7 @@ window.editCase = function(id) {
     document.getElementById('caseId').value = c.id;
     document.getElementById('caseDate').value = c.caseDate || todayStr;
     document.getElementById('userEmail').value = c.userEmail || '';
-    document.getElementById('userId').value = c.userId || '';
     document.getElementById('rowNum').value = c.rowNum || '';
-    document.getElementById('missionName').value = c.missionName || '';
     
     const standardProviders = ['AyeT', 'RevU', 'Winklelab', 'Prodege', 'WDigital'];
     if (standardProviders.includes(c.provider)) {
@@ -3820,13 +3698,6 @@ window.editCase = function(id) {
     document.getElementById('issueCategory').value = c.issueCategory || '';
     document.getElementById('caseStatus').value = c.status;
     document.getElementById('caseNotes').value = c.notes || '';
-    document.getElementById('chkKyc').checked = !!c.checks?.kyc;
-    document.getElementById('chkDoc').checked = !!c.checks?.doc;
-    document.getElementById('chkProof').checked = !!c.checks?.proof;
-
-    currentUploadedProofs = c.proofs ? [...c.proofs] : [];
-    renderUploadPreviews();
-
     document.getElementById('modalTitle').textContent = 'Edit Escalation';
     caseModal.classList.add('show');
 };
@@ -4038,6 +3909,12 @@ function animateReviewsStats() {
         const amount = parseFloat(receivedEl.textContent.replace(/[^0-9.-]/g, '')) || 0;
         animateStatNumber(receivedEl, amount, { prefix: '$', decimals: 2 });
     }
+
+    const unpaidEl = document.getElementById('revStatUnpaid');
+    if (unpaidEl) {
+        const amount = parseFloat(unpaidEl.textContent.replace(/[^0-9.-]/g, '')) || 0;
+        animateStatNumber(unpaidEl, amount, { prefix: '$', decimals: 2 });
+    }
 }
 
 function renderReviews() {
@@ -4061,8 +3938,10 @@ function renderReviews() {
 
     const totalBonus = reviews.reduce((sum, r) => sum + (r.status === 'Successful' ? (parseFloat(r.bonus) || 0) : 0), 0);
     const receivedBonus = reviews.reduce((sum, r) => sum + (r.status === 'Successful' && r.paid === true ? (parseFloat(r.bonus) || 0) : 0), 0);
-    document.getElementById('revStatBonus').textContent = `$${totalBonus.toFixed(2)}`;
+    const unpaidBonus = Math.max(0, totalBonus - receivedBonus);
     document.getElementById('revStatReceived').textContent = `$${receivedBonus.toFixed(2)}`;
+    document.getElementById('revStatBonus').textContent = `$${totalBonus.toFixed(2)}`;
+    document.getElementById('revStatUnpaid').textContent = `$${unpaidBonus.toFixed(2)}`;
 
     if (!reviewsStatsAnimated) {
         requestAnimationFrame(animateReviewsStats);
