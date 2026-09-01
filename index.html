@@ -4604,3 +4604,49 @@ setupRainCardTool();
     white-space: nowrap !important;
 }
 </style>
+<style>
+/* ===== CATEGORY FIX AFTER MISSION REMOVAL ===== */
+/* Only Provider + Category remain, so give both columns real space. */
+.cases-grid:not(.list-mode) .case-meta-wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+}
+.cases-grid:not(.list-mode) .case-meta-item {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+.cases-grid:not(.list-mode) .issue-tag,
+.cases-grid:not(.list-mode) .provider-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+/* List view: Provider + Category only. */
+.cases-grid.list-mode .case-meta-wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(150px, 1fr) !important;
+    gap: 10px !important;
+    overflow: visible !important;
+}
+.cases-grid.list-mode .case-meta-item {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+.cases-grid.list-mode .issue-tag,
+.cases-grid.list-mode .provider-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+</style>
